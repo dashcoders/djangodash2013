@@ -1,13 +1,3 @@
-// app.FriendItemView = Backbone.View.extend({
-// 	el: 'li',
-// 	template: _.template($('#friend-item-template').html()),
-// 	model: app.FriendModel,
-
-// 	initialize: function() {
-
-// 	}
-// });
-
 app.FriendListView = Backbone.View.extend({
 	el: '#frinds-list',
 	template: _.template($('#friends-list-template').html()),
@@ -20,8 +10,23 @@ app.FriendListView = Backbone.View.extend({
 	},
 
 	render: function() {
-		console.log(this.collection.toJSON());
-		var friendsHTML = this.template({friends: this.collection.toJSON() });
-		this.$el.empty().append(friendsHTML);
+		var html = this.template({friends: this.collection.toJSON() });
+		this.$el.empty().append(html);
+	}
+});
+
+app.MutualPhotosListView = Backbone.View.extend({
+	el: '#mutual-photos',
+	template: _.template($('#mutual-photos-template').html()),
+	collection: new app.MutualPhotosCollection(),
+
+	initialize: function() {
+		_.bindAll(this, ['render']);
+		this.collection.fetch({ success: this.render });
+	},
+
+	render: function() {
+		var html = this.template({photos: this.collection.toJSON() });
+		this.$el.empty().append(html);
 	}
 });

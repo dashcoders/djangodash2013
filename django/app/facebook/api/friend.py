@@ -36,7 +36,7 @@ class FriendResource(BaseResource):
             return self.create_response(request, cached_friends)
 
         query = user.fql({
-            'query_friends': 'SELECT name, pic_big, profile_url, uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = \'{friend_facebook_id}\' AND uid2 IN (SELECT uid2 FROM friend WHERE uid1=me()))'.format(friend_facebook_id=friend_facebook_id),
+            'query_friends': 'SELECT name, pic_big, pic_small, profile_url, uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = \'{friend_facebook_id}\' AND uid2 IN (SELECT uid2 FROM friend WHERE uid1=me()))'.format(friend_facebook_id=friend_facebook_id),
         })
 
         response = []
@@ -58,7 +58,7 @@ class FriendResource(BaseResource):
             return self.create_response(request, cached_friends)
 
         query = user.fql({
-            'query_friends': 'SELECT name, pic_big, profile_url, uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=me())',
+            'query_friends': 'SELECT name, pic_big, pic_small, profile_url, uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=me())',
         })
 
         response = []
