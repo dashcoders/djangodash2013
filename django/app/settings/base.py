@@ -12,6 +12,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+AUTH_USER_MODEL = 'accounts.User'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -127,6 +129,9 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     'south',
+
+    'accounts',
+    'facebook',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
