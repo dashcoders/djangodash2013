@@ -30,7 +30,7 @@ class FriendResource(BaseResource):
         friend_facebook_id = kwargs.get('friend_facebook_id')
 
         query = user.fql({
-            'query_friends': 'SELECT name, pic_big, profile_url, uid, username FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = \'{friend_facebook_id}\' AND uid2 IN (SELECT uid2 FROM friend WHERE uid1=me()))'.format(friend_facebook_id=friend_facebook_id),
+            'query_friends': 'SELECT name, pic_big, profile_url, uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = \'{friend_facebook_id}\' AND uid2 IN (SELECT uid2 FROM friend WHERE uid1=me()))'.format(friend_facebook_id=friend_facebook_id),
         })
 
         response = []
@@ -44,7 +44,7 @@ class FriendResource(BaseResource):
         user = request.user
 
         query = user.fql({
-            'query_friends': 'SELECT name, pic_big, profile_url, uid, username FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=me())',
+            'query_friends': 'SELECT name, pic_big, profile_url, uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=me())',
         })
 
         response = []
