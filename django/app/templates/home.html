@@ -22,20 +22,18 @@
         <section id="frind-select">
             <h2>Friend Select</h2>
             <form action=".">
-                <ul>
-                    <li><input type="radio" name="friend"> <label>Frind Name 01</label></li>
-                    <li><input type="radio" name="friend"> <label>Frind Name 02</label></li>
-                    <li><input type="radio" name="friend"> <label>Frind Name 03</label></li>
-                    <li><input type="radio" name="friend"> <label>Frind Name 04</label></li>
-                    <li><input type="radio" name="friend"> <label>Frind Name 05</label></li>
-                </ul>
+                <ol id="frinds-list">
+
+                </ol>
                 <button type="submit">select</button>
             </form>
         </section>
     </div>
 
-    <script type="text/template" id="friend-item-template">
-        <li><input type="radio" name="friend"> <label>Frind Name 05</label></li>
+    <script type="text/template" id="friends-list-template">
+    <% _.each(friends, function(friend) { %>
+    <li><input type="radio" name="friend" id="friend_id_<%= friend.uid %>"><label for="friend_id_<%= friend.uid %>"><%= friend.name %></label></li>
+    <% }); %>
     </script>
 
     <script src="{{ STATIC_URL }}js/libs/jquery.js"></script>
@@ -45,5 +43,6 @@
     <script src="{{ STATIC_URL }}js/app/models.js"></script>
     <script src="{{ STATIC_URL }}js/app/collections.js"></script>
     <script src="{{ STATIC_URL }}js/app/views.js"></script>
+    <script src="{{ STATIC_URL }}js/app/main.js"></script>
 </body>
 </html>
