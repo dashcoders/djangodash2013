@@ -1,0 +1,2 @@
+// app namespace
+var app = {};

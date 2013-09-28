@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Django Dash 2013</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/main.css">
 </head>
 <body>
+<h1>forgetmyex.net</h1>
+
     {% if messages %}
         {% for message in messages %}
             <p>{{ message.tags }}: {{ message }}</p>
@@ -14,8 +17,33 @@
     	{{ request.user.get_full_name }}
     {% endif %}
 
-    <a href="https://graph.facebook.com/oauth/authorize?client_id={{ FACEBOOK_APP_ID }}&redirect_uri={{ FACEBOOK_REDIRECT_URI }}&scope={{ FACEBOOK_SCOPES }}">
-        <img src="http://andylockett.com/wp-content/uploads/2013/02/FacebookButton_post-image.jpg"/>
-    </a>
+    <a href="https://graph.facebook.com/oauth/authorize?client_id={{ FACEBOOK_APP_ID }}&redirect_uri={{ FACEBOOK_REDIRECT_URI }}&scope={{ FACEBOOK_SCOPES }}">Facebook Login</a>
+    <div id="app">
+        <section id="frind-select">
+            <h2>Friend Select</h2>
+            <form action=".">
+                <ul>
+                    <li><input type="radio" name="friend"> <label>Frind Name 01</label></li>
+                    <li><input type="radio" name="friend"> <label>Frind Name 02</label></li>
+                    <li><input type="radio" name="friend"> <label>Frind Name 03</label></li>
+                    <li><input type="radio" name="friend"> <label>Frind Name 04</label></li>
+                    <li><input type="radio" name="friend"> <label>Frind Name 05</label></li>
+                </ul>
+                <button type="submit">select</button>
+            </form>
+        </section>
+    </div>
+
+    <script type="text/template" id="friend-item-template">
+        <li><input type="radio" name="friend"> <label>Frind Name 05</label></li>
+    </script>
+
+    <script src="{{ STATIC_URL }}js/libs/jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/underscore.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/backbone.js"></script>
+    <script src="{{ STATIC_URL }}js/app/init.js"></script>
+    <script src="{{ STATIC_URL }}js/app/models.js"></script>
+    <script src="{{ STATIC_URL }}js/app/collections.js"></script>
+    <script src="{{ STATIC_URL }}js/app/views.js"></script>
 </body>
 </html>
