@@ -6,7 +6,8 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
+
 
 class FacebookLoginView(View):
 
@@ -48,4 +49,4 @@ class FacebookLoginView(View):
         else:
             messages.success(self.request, 'Congrats!!')
 
-        return HttpResponseRedirect(reverse('accounts_home'))
+        return redirect('accounts_home')
