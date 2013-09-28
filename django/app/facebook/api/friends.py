@@ -15,7 +15,7 @@ class FriendResource(BaseResource):
         The standard URLs this ``Resource`` should respond to.
         """
         return [
-            url(r"^(?P<resource_name>%s)/(?P<friend_id>\d+)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_list'), name="api_dispatch_list"),
+            url(r"^(?P<resource_name>%s)/with/(?P<friend_id>\d+)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_list'), name="api_dispatch_list"),
         ]
 
     def dispatch_list(self, request, **kwargs):
@@ -27,7 +27,7 @@ class FriendResource(BaseResource):
         user = request.user
 
         query = user.fql({
-            'query_friends': 'SELECT uid1, uid2 FROM friend WHERE uid1 = \'%s\' AND uid2 IN (SELECT uid2 FROM friend WHERE uid1=me())' % kwargs.get('friend_id'),
+            'query_friends': 'SELECT name, pic_big, profile_url, uid, username FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = \'%s\' AND uid2 IN (SELECT uid2 FROM friend WHERE uid1=me()))' % kwargs.get('friend_id'),
         })
 
         response = []
