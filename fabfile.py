@@ -6,7 +6,7 @@ from fabric.colors import green
 
 PROJECT_USER = 'forgetmyex'
 PROJECT_ROOT = '/home/{project_user}/project/'.format(project_user=PROJECT_USER)
-VIRTUALENV_ROOT = '/home/{project_user}/_env/'.format(project_user=PROJECT_USER)
+VIRTUALENV_ROOT = '/home/{project_user}/.env/'.format(project_user=PROJECT_USER)
 MANAGE_PY_PATH = '/home/{project_user}/project/django/app/manage.py'.format(project_user=PROJECT_USER)
 REQUIREMENTS_PATH = '/home/{project_user}/project/django/requirements.txt'.format(project_user=PROJECT_USER)
 REPOSITORY_TYPE = 'git'
@@ -43,7 +43,7 @@ class require_environment(object):
 def production():
     env.environment_name = 'production'
     env.hosts = [
-        'forgetmyex.co',
+        'forgetmyex.net',
     ]
 
 
@@ -61,8 +61,6 @@ def deploy():
     if not getattr(env, 'collectstatic_executed', False):
         env.collectstatic_executed = True
         manage_py('collectstatic --noinput')
-
-    manage_py('compress')
 
     restart_services()
 
