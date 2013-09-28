@@ -30,6 +30,13 @@
         </section>
 
         <section class="scroll">
+            <h2>Mutual Likes</h2>
+            <ol id="mutual-likes">
+
+            </ol>
+        </section>
+
+        <section class="scroll">
             <h2>Mutual Photos</h2>
             <ul id="mutual-photos" class="list-inline">
 
@@ -38,15 +45,30 @@
     </div>
 
     <script type="text/template" id="friends-list-template">
-    <% _.each(friends, function(friend) { %>
-    <li><input type="radio" name="friend" id="friend_id_<%= friend.uid %>"><label for="friend_id_<%= friend.uid %>"><img src="<%= friend.pic_small %>"><%= friend.name %></label></li>
-    <% }); %>
+        <% _.each(friends, function(friend) { %>
+            <li>
+                <input type="radio" name="friend" id="friend_id_<%= friend.uid %>">
+                <label for="friend_id_<%= friend.uid %>">
+                    <img src="<%= friend.pic_small %>"><%= friend.name %>
+                </label>
+            </li>
+        <% }); %>
     </script>
 
     <script type="text/template" id="mutual-photos-template">
-    <% _.each(photos, function(photo) { %>
-    <li><img src="<%= photo.src_small %>" title="<%= photo.caption %>" alt="<%= photo.caption %>"></li>
-    <% }); %>
+        <% _.each(photos, function(photo) { %>
+            <li>
+                <img src="<%= photo.src_small %>" title="<%= photo.caption %>" alt="<%= photo.caption %>">
+            </li>
+        <% }); %>
+    </script>
+
+    <script type="text/template" id="mutual-likes-template">
+        <% _.each(likes, function(like) { %>
+            <li>
+                <a href="<%= like.page_url %>"><%= like.name %></a>
+            </li>
+        <% }); %>
     </script>
 
     <script src="{{ STATIC_URL }}js/libs/jquery.js"></script>

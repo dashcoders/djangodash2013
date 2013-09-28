@@ -30,3 +30,19 @@ app.MutualPhotosListView = Backbone.View.extend({
 		this.$el.empty().append(html);
 	}
 });
+
+app.MutualLikesListView = Backbone.View.extend({
+	el: '#mutual-likes',
+	template: _.template($('#mutual-likes-template').html()),
+	collection: new app.MutualLikesCollection(),
+
+	initialize: function() {
+		_.bindAll(this, ['render']);
+		this.collection.fetch({ success: this.render });
+	},
+
+	render: function() {
+		var html = this.template({likes: this.collection.toJSON() });
+		this.$el.empty().append(html);
+	}
+});
