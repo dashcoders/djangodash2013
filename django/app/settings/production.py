@@ -1,6 +1,7 @@
 import os
 from .base import *
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -11,3 +12,7 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+FACEBOOK_REDIRECT_URI = 'http://forgetmyex.net/facebook/login/'
+FACEBOOK_APP_ID = '551248321618177'
+FACEBOOK_APP_SECRET = os.getenv('FACEBOOK_APP_SECRET')

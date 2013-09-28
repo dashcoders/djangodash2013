@@ -7,4 +7,4 @@ class PhotoResource(BaseResource):
         resource_name = 'photo'
 
     def obj_get_list(self, bundle, **kwargs):
-        return 
+        return []
