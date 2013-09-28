@@ -19,6 +19,8 @@ FACEBOOK_SCOPES = [
     'friends_photos',
     'email',
     'user_friends',
+    'user_likes',
+    'friends_likes',
 ]
 
 AUTHENTICATION_BACKENDS = (
