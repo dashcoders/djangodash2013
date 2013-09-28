@@ -8,8 +8,8 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['email']
     USERNAME_FIELD = 'email'
 
-    facebook_id = models.CharField(_('facebook id'), max_length=20)
-    facebook_access_token = models.CharField(_('facebook access token'), max_length=320)
+    facebook_id = models.CharField(_('facebook id'), max_length=20, unique=True, null=True)
+    facebook_access_token = models.CharField(_('facebook access token'), max_length=255, unique=True)
 
     def __unicode__(self):
         return self.email
