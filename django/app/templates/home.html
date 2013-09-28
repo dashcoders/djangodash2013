@@ -14,7 +14,7 @@
     	{{ request.user.get_full_name }}
     {% endif %}
 
-    <a href="https://graph.facebook.com/oauth/authorize?client_id={{ FACEBOOK_APP_ID }}&redirect_uri={{ FACEBOOK_REDIRECT_URI }}&scope=publish_stream,email">
+    <a href="https://graph.facebook.com/oauth/authorize?client_id={{ FACEBOOK_APP_ID }}&redirect_uri={{ FACEBOOK_REDIRECT_URI }}&scope={{ FACEBOOK_SCOPES }}">
         <img src="http://andylockett.com/wp-content/uploads/2013/02/FacebookButton_post-image.jpg"/>
     </a>
 </body>

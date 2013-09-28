@@ -2,6 +2,7 @@
 from django.conf import settings
 from django.views.generic import View
 from django.shortcuts import redirect
+from django.contrib.auth import logout
 
 
 class LogoutView(View):

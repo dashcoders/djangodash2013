@@ -14,6 +14,12 @@ MANAGERS = ADMINS
 
 AUTH_USER_MODEL = 'accounts.User'
 
+FACEBOOK_SCOPES = [
+    'user_photos',
+    'friends_photos',
+    'email',
+]
+
 AUTHENTICATION_BACKENDS = (
     'facebook.backends.FacebookBackend',
 )
