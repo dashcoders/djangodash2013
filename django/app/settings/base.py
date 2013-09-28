@@ -21,6 +21,8 @@ FACEBOOK_SCOPES = [
     'user_friends',
     'user_likes',
     'friends_likes',
+    'read_stream',
+    'read_insights',
 ]
 
 AUTHENTICATION_BACKENDS = (
