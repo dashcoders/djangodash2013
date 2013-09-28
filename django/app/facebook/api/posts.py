@@ -29,10 +29,10 @@ class PostResource(BaseResource):
 
         friend_facebook_id = kwargs.get('friend_facebook_id')
 
-        response = user.fql ({
-            'query_my_posts': 'SELECT post_id, message, permalink, actor_id, created_time FROM stream WHERE source_id=\'{friend_facebook_id}\' AND actor_id = me() LIMIT 1000000'.format(friend_facebook_id=friend_facebook_id),
-            'query_my_posts_tag': 'SELECT post_id, message, permalink, actor_id, created_time FROM stream WHERE source_id=me() AND target_id=\'{friend_facebook_id}\' AND actor_id = me() LIMIT 1000000'.format(friend_facebook_id=friend_facebook_id),
-            'query_friend_posts': 'SELECT post_id, message, permalink, actor_id, created_time FROM stream WHERE source_id=me() AND target_id=me() AND actor_id=\'{friend_facebook_id}\'LIMIT 1000000'.format(friend_facebook_id=friend_facebook_id),
+        response = user.fql({
+            'query_my_posts': 'SELECT post_id, message, permalink, actor_id, created_time, attachment FROM stream WHERE source_id=\'{friend_facebook_id}\' AND actor_id = me() LIMIT 1000000'.format(friend_facebook_id=friend_facebook_id),
+            'query_my_posts_tag': 'SELECT post_id, message, permalink, actor_id, created_time, attachment FROM stream WHERE source_id=me() AND target_id=\'{friend_facebook_id}\' AND actor_id = me() LIMIT 1000000'.format(friend_facebook_id=friend_facebook_id),
+            'query_friend_posts': 'SELECT post_id, message, permalink, actor_id, created_time, attachment FROM stream WHERE source_id=me() AND target_id=me() AND actor_id=\'{friend_facebook_id}\' LIMIT 1000000'.format(friend_facebook_id=friend_facebook_id),
         })
 
         posts = {}
