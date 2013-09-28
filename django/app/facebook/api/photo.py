@@ -1,5 +1,6 @@
 # coding: utf-8
 from django.conf.urls import url
+from django.core.cache import cache
 from common.api import BaseResource
 
 from tastypie.utils import trailing_slash
@@ -26,8 +27,13 @@ class PhotoResource(BaseResource):
 
     def get_with_friend(self, request, **kwargs):
         friend_facebook_id = kwargs.get('friend_facebook_id')
-
         user = request.user
+        cache_id = 'photo_list_user_mutual_%s_%s' % (user.facebook_id, friend_facebook_id)
+
+        cached_photos = cache.get(cache_id)
+
+        if cached_photos:
+            return self.create_response(request, cached_photos)
 
         response = user.fql({
             'query1_tags': 'SELECT pid, xcoord, ycoord FROM photo_tag WHERE pid IN (SELECT pid FROM photo WHERE owner = \'{friend_facebook_id}\') AND subject = me()'.format(friend_facebook_id=friend_facebook_id),
@@ -44,5 +50,7 @@ class PhotoResource(BaseResource):
                 if result.get('pid') not in photos:
                     photos[result.get('pid')] = {}
                 photos[result.get('pid')].update(result)
+
+        cache.set(cache_id, photos.values(), 24 * 60 * 60)
 
         return self.create_response(request, photos.values())
