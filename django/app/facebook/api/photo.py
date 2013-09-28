@@ -45,6 +45,4 @@ class PhotoResource(BaseResource):
                     photos[result.get('pid')] = {}
                 photos[result.get('pid')].update(result)
 
-                print photos[result.get('pid')]
-
         return self.create_response(request, photos.values())
