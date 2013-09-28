@@ -18,4 +18,5 @@ urlpatterns = patterns(
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', HomeTemplateView.as_view(), name='accounts_home'),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^facebook/', include('facebook.urls')),
 )
