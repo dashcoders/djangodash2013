@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Django Dash 2013</title>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/app.css">
+</head>
+<body>
+    <div class="app">
+        <div class="app-sidebar">
+            <div class="app-sidebaer-header">
+                <img  src="{{ STATIC_URL }}img/profile-image.png" class="user-profile-image">
+                <img src="{{ STATIC_URL }}img/logo-small.png" class="app-logo">
+            </div>
+
+            <div class="app-sidebar-section">
+                <p class="app-sidebar-title">Find my ex</p>
+                <div class="ex-search">
+                    <img src="{{ STATIC_URL }}img/profile-ex-image.png">
+                    <div class="ex-info">
+                        <p class="ex-username">Maria da Silva</p>
+                        <a href="#">Search / Change</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="app-sidebar-section">
+                <p class="app-sidebar-title">See common</p>
+                <ul>
+                    <li><a href="#">Photos <span class="count">10</span></a></li>
+                    <li><a href="#">Friends <span class="count">20</span></a></li>
+                    <li><a href="#">Likes <span class="count">30</span></a></li>
+                </ul>
+            </div>
+
+             <div class="app-sidebar-section">
+                <p class="app-sidebar-title">Options</p>
+                <ul>
+                    <a href="#">Logout</a>
+                </ul>
+            </div>
+        </div>
+        <div class="app-content">
+            <div class="app-view">
+                <h2 class="app-view-title">Photos</h2>
+                <div class="app-view-content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-splash">
+
+        </div>
+
+        <div class="full-el app-overlay"></div>
+        <div class="app-modal modal-find-ex">
+            <div class="app-modal-header">
+                <h3 class="title">Find your ex</h3>
+            </div>
+            <div class="app-modal-content">
+                <ul class="user-list-modal">
+                    <li>
+                        <input type="radio">
+                        <label>
+                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
+                            Maria da Silva
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio">
+                        <label>
+                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
+                            João da Silva
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio">
+                        <label>
+                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
+                            Maria da Silva
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio">
+                        <label>
+                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
+                            João da Silva
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio">
+                        <label>
+                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
+                            Maria da Silva
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio">
+                        <label>
+                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
+                            João da Silva
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio">
+                        <label>
+                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
+                            Maria da Silva
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio">
+                        <label>
+                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
+                            João da Silva
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="app-modal-footer button-right">
+                <button class="button">ok</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

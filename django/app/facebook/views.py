@@ -46,4 +46,4 @@ class FacebookLoginView(View):
         else:
             error = 'AUTH_DENIED'
 
-        return redirect('home')
+        return redirect('app')

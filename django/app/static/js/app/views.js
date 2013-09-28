@@ -4,7 +4,22 @@ app.FriendListView = Backbone.View.extend({
 	collection: new app.FriendsCollection(),
 
 	initialize: function() {
-		// this.collection.on('fetch', this.render, this);
+		_.bindAll(this, ['render']);
+		this.collection.fetch({ success: this.render });
+	},
+
+	render: function() {
+		var html = this.template({friends: this.collection.toJSON() });
+		this.$el.empty().append(html);
+	}
+});
+
+app.MutualFriendListView = Backbone.View.extend({
+	el: '#mutual-friends-list',
+	template: _.template($('#friends-list-template').html()),
+	collection: new app.MutualFriendsCollection(),
+
+	initialize: function() {
 		_.bindAll(this, ['render']);
 		this.collection.fetch({ success: this.render });
 	},
