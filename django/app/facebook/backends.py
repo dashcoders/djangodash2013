@@ -27,7 +27,7 @@ class FacebookBackend(object):
         url = 'https://graph.facebook.com/me/'
 
         params = {
-            'access_token': self.access_token,
+            'access_token': token,
             'metadata': 1,
         }
 
