@@ -13,3 +13,6 @@ class User(AbstractUser):
 
     def __unicode__(self):
         return self.email
+
+    def facebook_graph(self, path, params={}):
+        pass
