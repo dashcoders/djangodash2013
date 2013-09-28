@@ -5,6 +5,7 @@ from accounts.models import User
 
 
 class FacebookBackend(object):
+    
     def authenticate(self, token):
         facebook_profile = self.get_facebook_profile(token)
 
@@ -12,9 +13,9 @@ class FacebookBackend(object):
             return None
 
         try:
-            user = User.objects.get(facebook_id=facebook_profile['id'])
+            user = User.objects.get(facebook_id=facebook_profile.get('id'))
         except User.DoesNotExist:
-            user = User(facebook_id=facebook_profile['id'])
+            user = User(facebook_id=facebook_profile.get('id'))
 
         user.set_unusable_password()
         user.facebook_access_token = token
@@ -28,21 +29,12 @@ class FacebookBackend(object):
     def get_facebook_profile(self, token):
         url = 'https://graph.facebook.com/me/'
 
-        params = {
-            'access_token': token,
-        }
-
         response = requests.get(
             url,
-            params=params,
-            headers={
-                'Content-type': 'application/json',
-                'Accept': 'application/json',
+            params={
+                'access_token': token,
             },
         )
-
-        print response.json
-        print response.json()
 
         return response.json()
 

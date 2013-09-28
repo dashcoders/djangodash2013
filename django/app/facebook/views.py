@@ -12,8 +12,10 @@ from django.contrib.auth import authenticate, login
 class FacebookLoginView(View):
 
     def get(self, *args, **kwargs):
-        if self.request.user.is_authenticated():
-            return redirect('accounts_home')
+        error = None
+
+        if 'error' in self.request.GET.keys():
+            return redirect('home')
 
         if 'code' in self.request.GET.keys():
             params = {
@@ -44,9 +46,4 @@ class FacebookLoginView(View):
         else:
             error = 'AUTH_DENIED'
 
-        if error:
-            messages.error(self.request, error)
-        else:
-            messages.success(self.request, 'Congrats!!')
-
-        return redirect('accounts_home')
+        return redirect('home')
