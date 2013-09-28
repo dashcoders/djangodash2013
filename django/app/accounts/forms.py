@@ -9,14 +9,14 @@ class LoginForm(forms.Form):
         'bad_credentials': _('User or password incorrect')
     }
 
-    username = forms.CharField(label=_('username'), max_length=20)
+    username = forms.CharField(label=_('username'), max_length=255)
     # password = forms.CharField(label=_('password'), max_length=20, widget=forms.PasswordInput)
 
     def clean(self, *args, **kwargs):
         cleaned_data = super(LoginForm, self).clean(*args, **kwargs)
         username = cleaned_data.get('username')
         # password = cleaned_data.get('password')
-        user = authenticate(username=username)
+        user = authenticate(token=username)
         if not user:
             raise forms.ValidationError(self.error_messages['bad_credentials'])
         self.user_cache = user

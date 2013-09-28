@@ -1,5 +1,4 @@
 # coding: utf-8
-import json
 import requests
 # from django.utils.translation import ugettext as _
 from accounts.models import User
@@ -9,10 +8,13 @@ class FacebookBackend(object):
     def authenticate(self, token):
         facebook_profile = self.get_facebook_profile(token)
 
+        if 'error' in facebook_profile.keys():
+            return None
+
         try:
-            user = User.object.get(facebook_id=facebook_profile['id'])
+            user = User.objects.get(facebook_id=facebook_profile['id'])
         except User.DoesNotExist:
-            user = User.get(facebook_id=facebook_profile['id'])
+            user = User(facebook_id=facebook_profile['id'])
 
         user.set_unusable_password()
         user.facebook_access_token = token
@@ -21,14 +23,13 @@ class FacebookBackend(object):
         user.last_name = facebook_profile.get('last_name')
         user.save()
 
-        print user
+        return user
 
     def get_facebook_profile(self, token):
         url = 'https://graph.facebook.com/me/'
 
         params = {
             'access_token': token,
-            'metadata': 1,
         }
 
         response = requests.get(
@@ -40,12 +41,13 @@ class FacebookBackend(object):
             },
         )
 
-        return self._parse_json(response.content)
+        print response.json
+        print response.json()
 
-    def _parse_json(self, content):
+        return response.json()
+
+    def get_user(self, user_id):
         try:
-            data = json.loads(content)
-        except Exception:
-            print 'Error parsing JSON response', content
-            raise Exception(error_message=content)
-        return data
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None

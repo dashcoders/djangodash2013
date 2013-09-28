@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message.tags }}: {{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    <a href="https://graph.facebook.com/oauth/authorize?client_id={{ facebook_id }}&redirect_uri={{ facebook_redirect_uri }}&scope=publish_stream,email">
+        <img src="http://andylockett.com/wp-content/uploads/2013/02/FacebookButton_post-image.jpg"/>
+    </a>
+</body>
+</html>

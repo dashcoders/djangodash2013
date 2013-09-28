@@ -14,6 +14,14 @@ MANAGERS = ADMINS
 
 AUTH_USER_MODEL = 'accounts.User'
 
+FACEBOOK_REDIRECT_URI = 'http://localhost:8000'
+FACEBOOK_APP_ID = '551248321618177'
+FACEBOOK_APP_SECRET = os.getenv('FACEBOOK_APP_SECRET')
+
+AUTHENTICATION_BACKENDS = (
+    'facebook.backends.FacebookBackend',
+)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
