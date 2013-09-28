@@ -39,11 +39,4 @@ class LikeResource(BaseResource):
             """.format(friend_facebook_id=friend_facebook_id)
         )
 
-        # photos = {}
-        # for results in response.get('data'):
-        #     for result in results.get('fql_result_set'):
-        #         if result.get('pid') not in photos:
-        #             photos[result.get('pid')] = {}
-        #         photos[result.get('pid')].update(result)
-
-        return self.create_response(request, response)
+        return self.create_response(request, response.get('data'))
