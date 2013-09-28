@@ -1,0 +1,1 @@
+app.FriendModel = Backbone.Model.extend();
