@@ -1,3 +1,4 @@
+{% load url from future %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +38,7 @@
              <div class="app-sidebar-section">
                 <p class="app-sidebar-title">Options</p>
                 <ul>
-                    <a href="#">Logout</a>
+                    <a href="{% url 'accounts_logout' %}">Logout</a>
                 </ul>
             </div>
         </div>
