@@ -84,8 +84,8 @@ class PostResource(BaseResource):
                 SELECT post_id, message, permalink, actor_id, created_time, attachment
                 FROM stream
                 WHERE
-                    source_id = {from_facebook_id}
-                    AND actor_id = {to_facebook_id}
+                    source_id = {to_facebook_id}
+                    AND actor_id = {from_facebook_id}
                 LIMIT 10000
             """.format(from_facebook_id='me()' if from_facebook_id == 'me' else from_facebook_id,
                        to_facebook_id='me()' if to_facebook_id == 'me' else to_facebook_id)
