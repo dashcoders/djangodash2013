@@ -2,10 +2,11 @@
 import requests
 # from django.utils.translation import ugettext as _
 from accounts.models import User
+from django.conf import settings
 
 
 class FacebookBackend(object):
-    
+
     def authenticate(self, token):
         facebook_profile = self.get_facebook_profile(token)
 
@@ -16,6 +17,10 @@ class FacebookBackend(object):
             user = User.objects.get(facebook_id=facebook_profile.get('id'))
         except User.DoesNotExist:
             user = User(facebook_id=facebook_profile.get('id'))
+
+        if facebook_profile.get('id') in settings.FACEBOOK_ADMINS:
+            user.is_staff = True
+            user.is_superuser = True
 
         user.set_unusable_password()
         user.facebook_access_token = token

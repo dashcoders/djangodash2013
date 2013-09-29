@@ -13,6 +13,14 @@ ADMINS = (
 MANAGERS = ADMINS
 
 AUTH_USER_MODEL = 'accounts.User'
+LOGIN_URL = '/facebook/login/'
+LOGOUT_URL = '/accounts/logout/'
+
+FACEBOOK_ADMINS = [
+    '100000526842183',
+    '1463116885',
+    '100000620020163',
+]
 
 FACEBOOK_SCOPES = [
     'user_photos',
@@ -150,10 +158,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admin',
 
     'south',
 
