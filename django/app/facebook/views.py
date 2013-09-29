@@ -34,6 +34,7 @@ class FacebookLoginView(View):
             )
 
             data = parse_qs(response.content)
+
             access_token = data['access_token'][0]
 
             user = authenticate(token=access_token)

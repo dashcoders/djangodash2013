@@ -46,10 +46,8 @@ class PostResource(BaseResource):
                     target_id = {to_facebook_id}
                     AND actor_id = {from_facebook_id}
                 LIMIT 10000
-            """.format(
-                from_facebook_id='me()' if from_facebook_id == 'me' else from_facebook_id,
-                to_facebook_id='me()' if to_facebook_id == 'me' else to_facebook_id,
-            )
+            """.format(from_facebook_id='me()' if from_facebook_id == 'me' else from_facebook_id,
+                       to_facebook_id='me()' if to_facebook_id == 'me' else to_facebook_id)
         )
 
         posts = []
@@ -89,10 +87,8 @@ class PostResource(BaseResource):
                     source_id = {from_facebook_id}
                     AND actor_id = {to_facebook_id}
                 LIMIT 10000
-            """.format(
-                from_facebook_id='me()' if from_facebook_id == 'me' else from_facebook_id,
-                to_facebook_id='me()' if to_facebook_id == 'me' else to_facebook_id,
-            )
+            """.format(from_facebook_id='me()' if from_facebook_id == 'me' else from_facebook_id,
+                       to_facebook_id='me()' if to_facebook_id == 'me' else to_facebook_id)
         )
 
         posts = query_posts.get('data')
