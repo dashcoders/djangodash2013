@@ -207,6 +207,7 @@ input[type="text"]{
 .app-view h2{
 	font-size: 26px;
 	font-weight: 700;
+    margin-bottom: 30px;
 }
 
 .app-view h3{
@@ -294,4 +295,50 @@ body.show-modal-ex .modal-find-ex{
 
 .user-list-modal label{
 	cursor: pointer;
+}
+
+.friends-list{
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.friends-list li{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    padding: 20px;
+    width: 150px;
+    height: 180px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 5px 5px;
+}
+
+.friends-list li:hover{
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.friends-list a{
+    display: block;
+    text-decoration: none;
+}
+
+.friends-list a:hover{
+    color: #666;
+}
+
+.friends-list .image{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.friends-list .username{
+    display: block;
+    text-align: center;
+    font-weight: 700;
 }

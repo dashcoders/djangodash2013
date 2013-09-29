@@ -12,7 +12,10 @@
 <script type="text/template" id="mutual-friends-list-template">
     <% _.each(friends, function(friend) { %>
         <li>
-            <img src="<%= friend.pic %>"><%= friend.name %>
+            <a href="<%= friend.profile_url %>" target="_blank">
+                <div class="image"><img src="<%= friend.pic %>" alt="<%= friend.name %>" title="<%= friend.name %>"></div>
+                <span class="username"><%= friend.name %></span>
+            </a>
         </li>
     <% }); %>
 </script>
