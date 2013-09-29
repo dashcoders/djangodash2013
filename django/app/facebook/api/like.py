@@ -1,6 +1,5 @@
 # coding: utf-8
 from django.conf.urls import url
-from django.core.cache import cache
 from common.api import BaseResource
 
 from tastypie.utils import trailing_slash
@@ -28,12 +27,6 @@ class LikeResource(BaseResource):
     def get_with_friend(self, request, **kwargs):
         friend_facebook_id = kwargs.get('friend_facebook_id')
         user = request.user
-        cache_id = 'like_list_user_mutual_%s_%s' % (user.facebook_id, friend_facebook_id)
-
-        cached_likes = cache.get(cache_id)
-
-        if cached_likes:
-            return self.create_response(request, cached_likes)
 
         response = user.fql(
             """
@@ -44,7 +37,5 @@ class LikeResource(BaseResource):
                 )
             """.format(friend_facebook_id=friend_facebook_id)
         )
-
-        cache.set(cache_id, response.get('data'), 24 * 60 * 60)
 
         return self.create_response(request, response.get('data'))

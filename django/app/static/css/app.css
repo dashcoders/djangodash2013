@@ -452,7 +452,21 @@ body.show-modal-ex .modal-find-ex{
     border-radius: 5px;
 }
 
-.loader {
+.app-modal-content .loader {
     display: block;
     margin: 20px auto;
+}
+
+.reload {
+    position: absolute;
+    top: 25px;
+    right: 60px;
+    cursor: pointer;
+}
+
+.loader {
+    position: absolute;
+    top: 29px;
+    right: 63px;
+    display: none;
 }

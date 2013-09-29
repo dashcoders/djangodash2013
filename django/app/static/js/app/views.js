@@ -31,8 +31,13 @@ app.FriendListView = Backbone.View.extend({
 
     render: function() {
         this.$img.fadeOut();
+
+        $('.reload.friends').hide();
+
         var html = this.template({friends: this.collection.toJSON() });
         this.$el.empty().append(html);
+
+        $('.reload.friends').show();
     }
 });
 
@@ -47,6 +52,12 @@ app.MutualFriendListView = Backbone.View.extend({
         this.menuButton = $('a[data-section="mutual-friends"]');
         this.counterEl = $('a[data-section="mutual-friends"] .count');
         this.collection.on('change', this.updateCounter);
+
+        $('.reload.friends').on('click', $.proxy(function(e) {
+            $(e.target).hide();
+            $(e.target).parents('img.loader').fadeIn('fast');
+            this.render();
+        }, this));
     },
 
     showLoader: function() {
@@ -62,6 +73,9 @@ app.MutualFriendListView = Backbone.View.extend({
     },
 
     render: function() {
+        $('img.loader').hide();
+        $('.reload').fadeIn('fast');
+
         var that = this, html;
         this.showLoader();
         this.collection.fetch({ success: function(){
@@ -84,6 +98,12 @@ app.MutualPhotosListView = Backbone.View.extend({
         this.menuButton = $('a[data-section="mutual-photos"]');
         this.counterEl = $('a[data-section="mutual-photos"] .count');
         this.collection.on('change', this.updateCounter);
+
+        $('.reload.photos').on('click', $.proxy(function(e) {
+            $(e.target).hide();
+            $(e.target).parents('img.loader').fadeIn('fast');
+            this.render();
+        }, this));
     },
 
     showLoader: function() {
@@ -106,6 +126,9 @@ app.MutualPhotosListView = Backbone.View.extend({
             that.collection.trigger('change');
             html = that.template({photos: that.collection.toJSON() });
             that.photosListEl.empty().append(html);
+
+            $('img.loader').hide();
+            $('.reload').fadeIn('fast');
         }});
     },
 });
@@ -121,6 +144,12 @@ app.MutualLikesListView = Backbone.View.extend({
         this.menuButton = $('a[data-section="mutual-likes"]');
         this.counterEl = $('a[data-section="mutual-likes"] .count');
         this.collection.on('change', this.updateCounter);
+
+        $('.reload.likes').on('click', $.proxy(function(e) {
+            $(e.target).hide();
+            $(e.target).parents('img.loader').fadeIn('fast');
+            this.render();
+        }, this));
     },
 
     showLoader: function() {
@@ -136,6 +165,9 @@ app.MutualLikesListView = Backbone.View.extend({
     },
 
     render: function() {
+        $('img.loader').hide();
+        $('.reload').fadeIn('fast');
+
         var that = this, html;
         this.showLoader();
         this.collection.fetch({ success: function(){
@@ -143,6 +175,9 @@ app.MutualLikesListView = Backbone.View.extend({
             that.collection.trigger('change');
             html = that.template({likes: that.collection.toJSON() });
             that.likesListEl.empty().append(html);
+
+            $('img.loader').hide();
+            $('.reload').fadeIn('fast');
         }});
     }
 });
@@ -164,6 +199,12 @@ app.MutualPostListView = Backbone.View.extend({
         this.postsFromFriendInMyTimeline.on('change', this.updateCounter);
         this.postsFromMeTaggedByFriend.on('change', this.updateCounter);
         this.postsFromFriendTaggingMe.on('change', this.updateCounter);
+
+        $('.reload.posts').on('click', $.proxy(function(e) {
+            $(e.target).hide();
+            $(e.target).parents('img.loader').fadeIn('fast');
+            this.render();
+        }, this));
     },
 
     showLoader: function() {
@@ -187,10 +228,16 @@ app.MutualPostListView = Backbone.View.extend({
             collection.trigger('change');
             html = that.template({ posts: collection.toJSON(), sectionTitle: sectionTitle });
             element.empty().append(html);
+
+            $('img.loader').hide();
+            $('.reload').fadeIn('fast');
         }});
     },
 
     render: function() {
+        $('img.loader').hide();
+        $('.reload').fadeIn('fast');
+
         this.renderSection("My posts in ex's timeline", this.postsFromMeInFriendTimeline, $("#from-me-in-friend"));
         this.renderSection("Ex's posts in my timeline", this.postsFromFriendInMyTimeline, $("#from-friend-in-me"));
         this.renderSection("My posts tagging my ex's", this.postsFromMeTaggedByFriend, $("#from-me-tagging-friend"));
@@ -211,6 +258,12 @@ app.MutualCommentsListView = Backbone.View.extend({
 
         this.commentsFromMeInPostsByFriend.on('change', this.updateCounter);
         this.commentsFromFriendInPostsByMe.on('change', this.updateCounter);
+
+        $('.reload.comments').on('click', $.proxy(function(e) {
+            $(e.target).hide();
+            $(e.target).parents('img.loader').fadeIn('fast');
+            this.render();
+        }, this));
     },
 
     showLoader: function() {
@@ -234,10 +287,16 @@ app.MutualCommentsListView = Backbone.View.extend({
             collection.trigger('change');
             html = that.template({ comments: collection.toJSON(), sectionTitle: sectionTitle });
             element.empty().append(html);
+
+            $('img.loader').hide();
+            $('.reload').fadeIn('fast');
         }});
     },
 
     render: function() {
+        $('img.loader').hide();
+        $('.reload').fadeIn('fast');
+
         this.renderSection("Comments from me in posts by my ex's", this.commentsFromMeInPostsByFriend, $("#comments-from-me"));
         this.renderSection("Comments from my ex's in posts by me", this.commentsFromFriendInPostsByMe, $("#comments-from-friend"));
     }
