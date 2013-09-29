@@ -1,3 +1,3 @@
 $(function() {
-	app.view = new app.AppView();
+    app.view = new app.AppView();
 });

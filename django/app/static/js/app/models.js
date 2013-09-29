@@ -1,5 +1,5 @@
 app.FriendModel = Backbone.Model.extend({
-	idAttribute: 'uid'
+    idAttribute: 'uid'
 });
 
 app.MutualPhotosModel = Backbone.Model.extend();
