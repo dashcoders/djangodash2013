@@ -14,7 +14,7 @@ class PhotoResource(BaseResource):
         authentication = Authentication()
 
         with_friend_allowed_methods = ['get']
-        detail_allowed_methos = ['get', 'delete']
+        detail_allowed_methods = ['get', 'delete']
         profile_allowed_methods = ['get']
 
     def delete_detail(self, request, **kwargs):
