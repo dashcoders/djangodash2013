@@ -82,7 +82,6 @@ app.MutualLikesListView = Backbone.View.extend({
         this.counterEl.css('opacity', 0).text(this.collection.length).fadeTo(300, 1);
     },
 
-
     render: function() {
         var that = this, html;
         this.collection.fetch({ success: function(){
@@ -93,6 +92,45 @@ app.MutualLikesListView = Backbone.View.extend({
     }
 });
 
+app.MutualPostListView = Backbone.View.extend({
+    el: 'div[data-section="mutual-photos"]',
+    template: _.template($('#mutual-posts-template').html()),
+
+    initialize: function() {
+        _.bindAll(this, 'render', 'renderSection', 'updateCounter');
+        this.counterEl = $('a[data-section="mutual-posts"] .count');
+        this.postsFromMeInFriendTimeline = new app.PostsFromMeInFriendTimeline();
+        this.postsFromFriendInMyTimeline = new app.PostsFromFriendInMyTimeline();
+        this.postsFromMeTaggedByFriend = new app.PostsFromMeTaggedByFriend();
+        this.postsFromFriendTaggingMe = new app.PostsFromFriendTaggingMe();
+
+        this.postsFromMeInFriendTimeline.on('change', this.updateCounter);
+        this.postsFromFriendInMyTimeline.on('change', this.updateCounter);
+        this.postsFromMeTaggedByFriend.on('change', this.updateCounter);
+        this.postsFromFriendTaggingMe.on('change', this.updateCounter);
+    },
+
+    updateCounter: function() {
+        var sum = this.postsFromMeInFriendTimeline.length + this.postsFromFriendInMyTimeline.length + this.postsFromMeTaggedByFriend.length + this.postsFromFriendTaggingMe.length;
+        this.counterEl.css('opacity', 0).text(sum).fadeTo(300, 1);
+    },
+
+    renderSection: function(sectionTitle, collection, element) {
+        var that = this, html;
+        collection.fetch({ success: function(){
+            collection.trigger('change');
+            html = that.template({ posts: collection.toJSON(), sectionTitle: sectionTitle });
+            element.empty().append(html);
+        }});
+    },
+
+    render: function() {
+        this.renderSection("My posts in ex's timeline", this.postsFromMeInFriendTimeline, $("#from-me-in-friend"));
+        this.renderSection("Ex's posts in my timeline", this.postsFromFriendInMyTimeline, $("#from-friend-in-me"));
+        this.renderSection("My posts tagging my ex's", this.postsFromMeTaggedByFriend, $("#from-me-tagging-friend"));
+        this.renderSection("Ex's posts tagging me", this.postsFromFriendTaggingMe, $("#from-friend-tagging-me"));
+    }
+});
 
 app.AppView = Backbone.View.extend({
     el: '#app',
@@ -109,6 +147,7 @@ app.AppView = Backbone.View.extend({
         this.mutualFriendsList = new app.MutualFriendListView();
         this.mutualPhotosList = new app.MutualPhotosListView();
         this.mutualLikesList = new app.MutualLikesListView();
+        this.mutualPostList = new app.MutualPostListView();
         this.handleLocalStorage();
     },
 
@@ -124,6 +163,7 @@ app.AppView = Backbone.View.extend({
         this.mutualFriendsList.render();
         this.mutualPhotosList.render();
         this.mutualLikesList.render();
+        this.mutualPostList.render();
     },
 
     showSection: function( event ) {
