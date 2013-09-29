@@ -39,7 +39,8 @@
              <div class="app-sidebar-section">
                 <p class="app-sidebar-title">Options</p>
                 <ul>
-                    <a href="{% url 'accounts_logout' %}">Logout</a>
+                    <li><a href="{% url 'accounts_logout' %}">Logout</a></li>
+                    <li><div class="fb-like" data-href="http://forgetmyex.net/" data-width="450" data-layout="button_count" data-show-faces="true" data-send="false"></div></li>
                 </ul>
             </div>
         </div>
@@ -133,6 +134,15 @@
     <script src="{{ STATIC_URL }}js/app/collections.js"></script>
     <script src="{{ STATIC_URL }}js/app/views.js"></script>
     <script src="{{ STATIC_URL }}js/app/main.js"></script>
+
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=551248321618177";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
