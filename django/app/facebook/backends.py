@@ -25,7 +25,7 @@ class FacebookBackend(object):
         user.username = facebook_profile.get('id')
         user.set_unusable_password()
         user.facebook_access_token = token
-        user.email = facebook_profile.get('email')
+        user.email = facebook_profile.get('email', '')
         user.first_name = facebook_profile.get('first_name')
         user.last_name = facebook_profile.get('last_name')
         user.save()
