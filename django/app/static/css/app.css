@@ -479,7 +479,8 @@ body.show-modal-ex .modal-find-ex{
     border-radius: 5px;
 }
 
-.app-modal-content .loader {
+.app-modal-content .loader-modal {
+    clear: both;
     display: block;
     margin: 20px auto;
 }
