@@ -6,20 +6,20 @@ app.FriendsCollection = Backbone.Collection.extend({
 app.MutualFriendsCollection = Backbone.Collection.extend({
     model: app.FriendModel,
     url: function() {
-        return '/facebook/api/friend/mutual/'+ app.friendId +'/';
+        return '/facebook/api/friend/mutual/'+ app.friend.uid +'/';
     }
 });
 
 app.MutualPhotosCollection = Backbone.Collection.extend({
     model: app.MutualPhotosModel,
     url: function() {
-        return '/facebook/api/photo/with/'+ app.friendId +'/';
+        return '/facebook/api/photo/with/'+ app.friend.uid +'/';
     }
 });
 
 app.MutualLikesCollection = Backbone.Collection.extend({
     model: app.MutualPhotosModel,
     url: function() {
-        return '/facebook/api/like/with/'+ app.friendId +'/';
+        return '/facebook/api/like/with/'+ app.friend.uid +'/';
     }
 });

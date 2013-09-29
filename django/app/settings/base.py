@@ -23,12 +23,28 @@ FACEBOOK_ADMINS = [
 ]
 
 FACEBOOK_SCOPES = [
-    'user_photos',
-    'friends_photos',
     'email',
     'user_friends',
     'user_likes',
+    'user_notes',
+    'user_status',
+    'user_activities',
+    'user_events',
+    'user_groups',
+    'user_photos',
+    'user_about_me',
+    'user_questions',
+    'user_videos',
+
     'friends_likes',
+    'friends_status',
+    'friends_notes',
+    'friends_groups',
+    'friends_activities',
+    'friends_events',
+    'friends_questions',
+    'friends_videos',
+
     'read_stream',
 ]
 

@@ -10,42 +10,122 @@ class PostResource(BaseResource):
     class Meta(BaseResource.Meta):
         related_name = 'post'
 
-        mutual_allowed_methods = ['get']
-        list_allowed_methos = ['get']
+        in_friend_allowed_methods = ['get']
+        tagged_friend_allowed_methods = ['get']
 
     def base_urls(self):
-        """
-        The standard URLs this ``Resource`` should respond to.
-        """
         return [
-            # url(r"^(?P<resource_name>%s)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_list'), name="api_dispatch_list"),
-            url(r"^(?P<resource_name>%s)/mutual/(?P<friend_facebook_id>\d+)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_mutual'), name="api_dispatch_mutual"),
+            url(
+                r"^(?P<resource_name>%s)/in/(?P<friend_facebook_id>\d+)%s$" % (self._meta.resource_name, trailing_slash()),
+                self.wrap_view('dispatch_in_friend'),
+                name="api_dispatch_in_friend"
+            ),
+            url(
+                r"^(?P<resource_name>%s)/tagged/(?P<friend_facebook_id>\d+)%s$" % (self._meta.resource_name, trailing_slash()),
+                self.wrap_view('dispatch_tagged_friend'),
+                name="api_dispatch_tagged_friend"
+            ),
         ]
 
-    def dispatch_mutual(self, request, **kwargs):
-        return self.dispatch('mutual', request, **kwargs)
+    def dispatch_in_friend(self, request, **kwargs):
+        return self.dispatch('in_friend', request, **kwargs)
 
-    def get_mutual(self, request, **kwargs):
+    def dispatch_tagged_friend(self, request, **kwargs):
+        return self.dispatch('tagged_friend', request, **kwargs)
+
+    def get_in_friend(self, request, **kwargs):
         user = request.user
         friend_facebook_id = kwargs.get('friend_facebook_id')
-        cache_id = 'post_list_user_mutual_%s_%s' % (user.facebook_id, friend_facebook_id)
 
-        cached_posts = cache.get(cache_id)
+        query_tags = user.fql(
+            """
+                SELECT post_id, actor_id
+                FROM stream_tag
+                WHERE
+                    target_id = me()
+                    AND actor_id = '{friend_facebook_id}'
+                LIMIT 10000
+            """.format(
+                friend_facebook_id=friend_facebook_id,
+            )
+        )
 
-        if cached_posts:
-            return self.create_response(request, cached_posts)
+        posts = []
+        tagged_posts = query_tags.get('data')
 
-        response = user.fql({
-            'query_my_posts': 'SELECT post_id, message, permalink, actor_id, created_time, attachment FROM stream WHERE source_id=\'{friend_facebook_id}\' AND actor_id = me() LIMIT 1000000'.format(friend_facebook_id=friend_facebook_id),
-            'query_my_posts_tag': 'SELECT post_id, message, permalink, actor_id, created_time, attachment FROM stream WHERE source_id=me() AND target_id=\'{friend_facebook_id}\' AND actor_id = me() LIMIT 1000000'.format(friend_facebook_id=friend_facebook_id),
-            'query_friend_posts': 'SELECT post_id, message, permalink, actor_id, created_time, attachment FROM stream WHERE source_id=me() AND target_id=me() AND actor_id=\'{friend_facebook_id}\' LIMIT 1000000'.format(friend_facebook_id=friend_facebook_id),
-        })
+        if tagged_posts:
+            posts_ids = []
+            for tagged_post in tagged_posts:
+                posts_ids.append("'{}_{}'".format(tagged_post.get('actor_id'), tagged_post.get('post_id')))
 
-        posts = {}
-        for results in response.get('data'):
-            for result in results.get('fql_result_set'):
-                posts[result.get('post_id')] = result
+            query_posts = user.fql(
+                """
+                    SELECT post_id, message, permalink, actor_id, created_time, attachment
+                    FROM stream
+                    WHERE
+                        post_id IN ({post_ids})
+                    LIMIT 10000
+                """.format(
+                    friend_facebook_id=friend_facebook_id,
+                    post_ids=','.join(posts_ids),
+                )
+            )
 
-        cache.set(cache_id, posts.values(), 24 * 60 * 60)
+            posts = query_posts.get('data')
 
-        return self.create_response(request, posts.values())
+        return self.create_response(request, posts)
+
+    def get_tagged_friend(self, request, **kwargs):
+        user = request.user
+        friend_facebook_id = kwargs.get('friend_facebook_id')
+
+        query_tags = user.fql(
+            """
+                SELECT post_id, actor_id
+                FROM stream_tag
+                WHERE
+                    target_id = '{friend_facebook_id}'
+                    AND actor_id = me()
+                LIMIT 10000
+            """.format(
+                friend_facebook_id=friend_facebook_id,
+            )
+        )
+
+        print """
+                SELECT post_id, actor_id
+                FROM stream_tag
+                WHERE
+                    target_id = '{friend_facebook_id}'
+                    AND actor_id = me()
+                LIMIT 10000
+            """.format(
+                friend_facebook_id=friend_facebook_id,
+            )
+
+        posts = []
+        tagged_posts = query_tags.get('data')
+
+        print tagged_posts
+
+        if tagged_posts:
+            posts_ids = []
+            for tagged_post in tagged_posts:
+                posts_ids.append("'{}_{}'".format(tagged_post.get('actor_id'), tagged_post.get('post_id')))
+
+            query_posts = user.fql(
+                """
+                    SELECT post_id, message, permalink, actor_id, created_time, attachment
+                    FROM stream
+                    WHERE
+                        post_id IN ({post_ids})
+                    LIMIT 10000
+                """.format(
+                    friend_facebook_id=friend_facebook_id,
+                    post_ids=','.join(posts_ids),
+                )
+            )
+
+            posts = query_posts.get('data')
+
+        return self.create_response(request, posts)

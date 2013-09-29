@@ -11,7 +11,7 @@
     <div id="app" class="app">
         <div class="app-sidebar">
             <div class="app-sidebaer-header">
-                <img src="https://graph.facebook.com/{{ request.user.facebook_id }}/picture?type=square" class="user-profile-image">
+                <img src="http://graph.facebook.com/{{ request.user.facebook_id }}/picture?type=square" class="user-profile-image">
                 <img src="{{ STATIC_URL }}img/logo-small.png" class="app-logo">
             </div>
 
@@ -44,20 +44,36 @@
         </div>
         <div class="app-content">
             <div class="app-view">
-                <h2>Mutual Friends</h2>
-                <ol id="mutual-friends-list" class="friends-list">
+                <div class="app-view-section">
+                    <h2>Mutual Friends</h2>
+                    <ol id="mutual-friends-list" class="list-style-1 friends-list">
 
-                </ol>
+                    </ol>
+                </div>
 
-                <h2>Mutual Likes</h2>
-                <ol id="mutual-likes">
+                <div class="app-view-section">
+                    <h2>Mutual Likes</h2>
+                    <ol id="mutual-likes" class="list-style-1 likes-list">
 
-                </ol>
+                    </ol>
+                </div>
 
-                <h2>Mutual Photos</h2>
-                <ul id="mutual-photos" class="list-inline">
+                <div class="app-view-section">
+                    <h2>Mutual Photos</h2>
+                    <ul id="mutual-photos" class="list-style-1 photos-list">
 
-                </ul>
+                    </ul>
+                </div>
+
+                <div class="app-view-section">
+                    <h2>Mutual Posts</h2>
+                    <ul id="mutual-posts" class="list-style-1 post-list">
+                        <li>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
