@@ -7,10 +7,11 @@ body{
 	font-family: 'Ubuntu', sans-serif;
 	color: #666;
 	font-size: 14px;
+	background: url(../img/bg.jpg) repeat-y center top;
 }
 
 a{
-	color: #999;
+	color: #888888;
 }
 
 a:hover{
@@ -25,7 +26,8 @@ input[type="text"]{
 .button{
 	display: inline-block;
 	border: 0;
-	padding: 15px;
+	margin: 0;
+	padding: 10px 30px;
 	font-size: 14px;
 	font-weight: 700;
 	cursor: pointer;
@@ -98,7 +100,7 @@ input[type="text"]{
 	top: 0;
 	width: 280px;
 	height: 100%;
-	background-color: #dddddd;
+	background-color: rgba(221, 221, 221, 0.5);
 	z-index: 1;
 }
 
@@ -115,7 +117,12 @@ input[type="text"]{
 }
 
 .app-view{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 	padding: 30px;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.5);
 }
 
 .app-view-title{
@@ -240,6 +247,7 @@ body.show-modal-ex .modal-find-ex{
 	top: 100px;
 	margin-left: -250px;
 	background-color: #fff;
+	box-shadow: 4px 5px 1px 0px rgba(0, 0, 0, 0.3);
 }
 
 .app-modal-header{
@@ -253,7 +261,7 @@ body.show-modal-ex .modal-find-ex{
 .app-modal-header,
 .app-modal-footer,
 .app-modal-content{
-	padding: 15px;
+	padding: 20px;
 }
 
 .app-modal-content{
