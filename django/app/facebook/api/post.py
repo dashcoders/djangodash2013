@@ -1,6 +1,5 @@
 # coding: utf-8
 from django.conf.urls import url
-from django.core.cache import cache
 from tastypie.utils import trailing_slash
 from common.api import BaseResource
 
