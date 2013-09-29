@@ -4,13 +4,22 @@ app.FriendsCollection = Backbone.Collection.extend({
 });
 
 app.MutualFriendsCollection = Backbone.Collection.extend({
-	model: app.FriendModel
+	model: app.FriendModel,
+	url: function() {
+		return '/facebook/api/friend/mutual/'+ app.friendId +'/';
+	}
 });
 
 app.MutualPhotosCollection = Backbone.Collection.extend({
-	model: app.MutualPhotosModel
+	model: app.MutualPhotosModel,
+	url: function() {
+		return '/facebook/api/photo/with/'+ app.friendId +'/';
+	}
 });
 
 app.MutualLikesCollection = Backbone.Collection.extend({
-	model: app.MutualPhotosModel
+	model: app.MutualPhotosModel,
+    url: function() {
+        return '/facebook/api/like/with/'+ app.friendId +'/';
+    }
 });

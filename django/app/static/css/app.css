@@ -93,7 +93,7 @@ input[type="text"]{
 }
 
 .app-sidebar{
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	width: 280px;
@@ -222,6 +222,7 @@ body.show-modal-ex .modal-find-ex{
 }
 
 .app-overlay{
+	position: fixed;
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 2;
 	display: none;
