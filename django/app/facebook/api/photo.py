@@ -15,6 +15,7 @@ class PhotoResource(BaseResource):
 
         with_friend_allowed_methods = ['get']
         detail_allowed_methos = ['get', 'delete']
+        profile_allowed_methods = ['get']
 
     def delete_detail(self, request, **kwargs):
         user = request.user
@@ -32,7 +33,25 @@ class PhotoResource(BaseResource):
                 self.wrap_view('dispatch_with_friend'),
                 name="api_dispatch_with_friend",
             ),
+            url(
+                r"^(?P<resource_name>%s)/profile/(?P<width>\d+)/(?P<height>\d+)%s$" % (self._meta.resource_name, trailing_slash()),
+                self.wrap_view('dispatch_profile'),
+                name="api_dispatch_profile",
+            ),
         ]
+
+    def dispatch_profile(self, request, **kwargs):
+        return self.dispatch('profile', request, **kwargs)
+
+    def get_profile(self, request, **kwargs):
+        user = request.user
+        width = kwargs.get('width')
+        height = kwargs.get('height')
+
+        response = user.graph_get('/me/picture/', params={'type': 'large', 'redirect': False})
+
+        return self.create_response(request, response.get('data'))
+
 
     def dispatch_with_friend(self, request, **kwargs):
         return self.dispatch('with_friend', request, **kwargs)
