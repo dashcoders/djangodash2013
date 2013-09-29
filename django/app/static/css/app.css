@@ -281,7 +281,7 @@ body.show-modal-ex .modal-find-ex{
     background: url(../img/loader-menu-item.gif) no-repeat 0 0;
     width: 16px;
     height: 16px;
-    margin-left: 0;
+    margin-left: -20px;
 }
 
 .app-modal-header{
