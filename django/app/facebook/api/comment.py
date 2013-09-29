@@ -8,37 +8,43 @@ class CommentResource(BaseResource):
 
     class Meta(BaseResource):
         related_name = 'comment'
-        mutual_allowed_methods = ['get']
+        in_posts_by_friend_allowed_methods = ['get']
 
     def base_urls(self):
         return [
-            url(r"^(?P<resource_name>%s)/with/(?P<friend_facebook_id>\d+)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_mutual'), name="api_dispatch_mutual"),
+            url(
+                r"^(?P<resource_name>%s)/from/(?P<from_facebook_id>(\d+|me))/in_posts_by/(?P<to_facebook_id>(\d+|me))%s$" % (self._meta.resource_name, trailing_slash()),
+                self.wrap_view('dispatch_in_posts_by_friend'),
+                name="api_dispatch_in_posts_by_friend"
+            ),
         ]
 
-    def dispatch_mutual(self, request, **kwargs):
-        return self.dispatch('mutual', request, **kwargs)
+    def dispatch_in_posts_by_friend(self, request, **kwargs):
+        return self.dispatch('in_posts_by_friend', request, **kwargs)
 
-    def get_mutual(self, request, **kwargs):
+    def get_in_posts_by_friend(self, request, **kwargs):
         user = request.user
-        friend_facebook_id = kwargs.get('friend_facebook_id')
+        from_facebook_id = kwargs.get('from_facebook_id')
+        to_facebook_id = kwargs.get('to_facebook_id')
 
-        query1 = 'SELECT post_id, text FROM comment WHERE post_id IN (SELECT post_id FROM stream WHERE source_id = me() LIMIT 100000000) AND fromid = \'{friend_facebook_id}\' LIMIT 100000'.format(friend_facebook_id=friend_facebook_id)
-        query2 = 'SELECT post_id, text FROM comment WHERE post_id IN (SELECT post_id FROM stream WHERE source_id = \'{friend_facebook_id}\' LIMIT 100000000) AND fromid = me() LIMIT 100000'.format(friend_facebook_id=friend_facebook_id)
+        query_comments = user.fql(
+            """
+                SELECT post_id, text
+                FROM comment
+                WHERE
+                    post_id IN (SELECT post_id FROM stream WHERE source_id = {to_facebook_id} LIMIT 1000000)
+                    AND fromid = {from_facebook_id}
+                LIMIT 10000
+            """.format(from_facebook_id='me()' if from_facebook_id == 'me' else from_facebook_id,
+                       to_facebook_id='me()' if to_facebook_id == 'me' else to_facebook_id)
+        )
 
-        response = user.fql({
-            'query_source1': query1,
-            'query_source2': query2,
-        })
+        comments = []
+        facebook_post = 'https://www.facebook.com/{}/posts/{}'
 
-        comments = {}
-        facebook_post = 'https://www.facebook.com/{0}/posts/{1}'
+        for comment in query_comments.get('data'):
+            user_id, post_id = comment.get('post_id').split('_')
+            comment['permalink'] = facebook_post.format(user_id, post_id)
+            comments.append(comment)
 
-        for result in response.get('data'):
-            for post in result.get('fql_result_set'):
-                if post.get('post_id') not in comments:
-                    comments[post.get('post_id')] = {}
-                user_id, post_id = post.get('post_id').split('_')
-                post['permalink'] = facebook_post.format(user_id, post_id)
-                comments[post.get('post_id')].update(post)
-
-        return self.create_response(request, comments.values())
+        return self.create_response(request, comments)
