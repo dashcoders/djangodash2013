@@ -77,7 +77,8 @@ app.AppView = Backbone.View.extend({
 
     events: {
         'click .ex-info a' : 'showFriendsList',
-        'click .modal-find-ex button' : 'chooseFriend'
+        'click .modal-find-ex button' : 'chooseFriend',
+        'click a[data-section]' : 'showSection'
     },
 
     initialize: function() {
@@ -114,6 +115,13 @@ app.AppView = Backbone.View.extend({
         this.mutualFriendsList.render();
         this.mutualPhotosList.render();
         this.mutualLikesList.render();
+    },
+
+    showSection: function( event ) {
+        event.preventDefault();
+        var section = $('div[data-section="'+ $(event.currentTarget).data('section') +'"]');
+        $('div[data-section]').not(section).hide();
+        section.show();
     },
 
     showFriendsList: function( event ) {
