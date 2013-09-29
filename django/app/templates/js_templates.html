@@ -1,6 +1,6 @@
 <script type="text/template" id="friends-list-template">
     <% _.each(friends, function(friend) { %>
-        <li>
+        <li data-name="<%= friend.name %>">
             <input type="radio" value="<%= friend.uid %>" name="friend" id="friend_id_<%= friend.uid %>">
             <label for="friend_id_<%= friend.uid %>">
                 <img src="<%= friend.pic_small %>"><%= friend.name %>
@@ -39,4 +39,19 @@
             </a>
         </li>
     <% }); %>
+</script>
+
+<script type="text/template" id="mutual-posts-template">
+    <% if(posts.length) { %>
+        <h3><%= sectionTitle %></h3>
+        <ul id="mutual-posts" class="list-style-1 post-list">
+            <% _.each(posts, function(post) { %>
+            <li>
+                <a href="<%= post.permalink %>">
+                    <%= post.message %>
+                </a>
+            </li>
+            <% }); %>
+        </ul>
+    <% } %>
 </script>

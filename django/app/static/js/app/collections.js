@@ -23,3 +23,31 @@ app.MutualLikesCollection = Backbone.Collection.extend({
         return '/facebook/api/like/with/'+ app.friend.uid +'/';
     }
 });
+
+app.PostsFromMeInFriendTimeline = Backbone.Collection.extend({
+    model: app.MutualPostsModel,
+    url: function() {
+        return '/facebook/api/post/from/me/in_timeline/'+ app.friend.uid +'/';
+    }
+});
+
+app.PostsFromFriendInMyTimeline = Backbone.Collection.extend({
+    model: app.MutualPostsModel,
+    url: function() {
+        return '/facebook/api/post/from/'+ app.friend.uid +'/in_timeline/me/';
+    }
+});
+
+app.PostsFromMeTaggedByFriend = Backbone.Collection.extend({
+    model: app.MutualPostsModel,
+    url: function() {
+        return '/facebook/api/post/from/me/tagged/'+ app.friend.uid +'/';
+    }
+});
+
+app.PostsFromFriendTaggingMe = Backbone.Collection.extend({
+    model: app.MutualPostsModel,
+    url: function() {
+        return '/facebook/api/post/from/'+ app.friend.uid +'/tagged/me/';
+    }
+});
