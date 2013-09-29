@@ -22,6 +22,7 @@ class FacebookBackend(object):
             user.is_staff = True
             user.is_superuser = True
 
+        user.username = facebook_profile.get('id')
         user.set_unusable_password()
         user.facebook_access_token = token
         user.email = facebook_profile.get('email')
