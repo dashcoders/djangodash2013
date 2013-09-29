@@ -59,12 +59,15 @@
 <script type="text/template" id="mutual-comments-template">
     <% if(comments.length) { %>
         <h3><%= sectionTitle %></h3>
-        <ul class="list-style-1 post-list">
+        <ul class="list-style-1 post-list comment-list">
             <% _.each(comments, function(comment) { %>
             <li>
                 <a href="<%= comment.permalink %>" target="_blank">
                     <%= comment.text.replace(/\n/igm, '<br>') %>
                 </a>
+                <% if(comment.can_remove) { %>
+                    <a href="#" class="delete" data-comment-id="<%= comment.id %>">delete comment</a>
+                <% } %>
             </li>
             <% }); %>
         </ul>

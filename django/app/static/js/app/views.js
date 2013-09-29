@@ -268,6 +268,10 @@ app.MutualCommentsListView = Backbone.View.extend({
     el: 'div[data-section="mutual-comments"]',
     template: _.template($('#mutual-comments-template').html()),
 
+    events: {
+        'click .comment-list a' : 'removeComment'
+    },
+
     initialize: function() {
         _.bindAll(this, 'render', 'renderSection', 'updateCounter');
         this.menuButton = $('a[data-section="mutual-comments"]');
@@ -300,6 +304,22 @@ app.MutualCommentsListView = Backbone.View.extend({
     updateCounter: function() {
         var sum = this.commentsFromMeInPostsByFriend.length + this.commentsFromFriendInPostsByMe.length;
         this.counterEl.css('opacity', 0).text(sum).fadeTo(300, 1);
+    },
+
+    removeComment: function( event ) {
+        event.preventDefault();
+        var button = $(event.currentTarget);
+        var commentId = button.data('comment-id');
+        if ( commentId ) {
+            button.addClass('state-loading');
+            $.ajax({
+                type: 'DELETE',
+                url: '/facebook/api/comment/' + commentId + '/',
+                success: function() {
+                    button.parents('li').remove();
+                }
+            });
+        }
     },
 
     renderSection: function(sectionTitle, collection, element) {

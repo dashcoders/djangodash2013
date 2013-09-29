@@ -438,12 +438,39 @@ body.show-modal-ex .modal-find-ex{
     margin: 0 10px 10px 0;
 }
 
+.post-list{
+    margin-bottom: 30px;
+}
+
 .post-list li{
+    overflow: hidden;
     margin-bottom: 10px;
 }
 
 .post-list li a{
     text-decoration: none;
+}
+
+.post-list .delete{
+    float: right;
+    position: relative;
+    font-weight: 700;
+    background: red;
+    color: #fff;
+    display: inline-block;
+    padding: 5px;
+}
+
+.post-list .delete.state-loading:before{
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    background: url(../img/loader-delete.gif) no-repeat 0 0;
+    position: absolute;
+    top: 5px;
+    left: -30px;
 }
 
 #search {
