@@ -15,12 +15,19 @@ app.FriendListView = Backbone.View.extend({
 });
 
 app.MutualFriendListView = Backbone.View.extend({
-    el: '#mutual-friends-list',
+    el: 'div[data-section="mutual-friends"]',
     template: _.template($('#mutual-friends-list-template').html()),
     collection: new app.MutualFriendsCollection(),
 
     initialize: function() {
-        _.bindAll(this, ['render']);
+        _.bindAll(this, 'render', 'updateCounter');
+        this.friendsListEl = $('#mutual-friends-list');
+        this.counterEl = $('a[data-section="mutual-friends"] .count');
+        this.collection.on('change', this.updateCounter);
+    },
+
+    updateCounter: function() {
+        this.counterEl.css('opacity', 0).text(this.collection.length).fadeTo(300, 1);
     },
 
     render: function() {
@@ -28,18 +35,25 @@ app.MutualFriendListView = Backbone.View.extend({
         this.collection.fetch({ success: function(){
             that.collection.trigger('change');
             html = that.template({friends: that.collection.toJSON() });
-            that.$el.empty().append(html);
+            that.friendsListEl.empty().append(html);
         }});
     }
 });
 
 app.MutualPhotosListView = Backbone.View.extend({
-    el: '#mutual-photos',
+    el: 'div[data-section="mutual-photos"]',
     template: _.template($('#mutual-photos-template').html()),
     collection: new app.MutualPhotosCollection(),
 
     initialize: function() {
-        _.bindAll(this, ['render']);
+        _.bindAll(this, 'render', 'updateCounter');
+        this.photosListEl = $('#mutual-photos');
+        this.counterEl = $('a[data-section="mutual-photos"] .count');
+        this.collection.on('change', this.updateCounter);
+    },
+
+    updateCounter: function() {
+        this.counterEl.css('opacity', 0).text(this.collection.length).fadeTo(300, 1);
     },
 
     render: function() {
@@ -47,26 +61,34 @@ app.MutualPhotosListView = Backbone.View.extend({
         this.collection.fetch({ success: function(){
             that.collection.trigger('change');
             html = that.template({photos: that.collection.toJSON() });
-            that.$el.empty().append(html);
+            that.photosListEl.empty().append(html);
         }});
     },
 });
 
 app.MutualLikesListView = Backbone.View.extend({
-    el: '#mutual-likes',
+    el: 'div[data-section="mutual-photos"]',
     template: _.template($('#mutual-likes-template').html()),
     collection: new app.MutualLikesCollection(),
 
     initialize: function() {
-        _.bindAll(this, ['render']);
+        _.bindAll(this, 'render', 'updateCounter');
+        this.likesListEl = $('#mutual-likes');
+        this.counterEl = $('a[data-section="mutual-likes"] .count');
+        this.collection.on('change', this.updateCounter);
     },
+
+    updateCounter: function() {
+        this.counterEl.css('opacity', 0).text(this.collection.length).fadeTo(300, 1);
+    },
+
 
     render: function() {
         var that = this, html;
         this.collection.fetch({ success: function(){
             that.collection.trigger('change');
             html = that.template({likes: that.collection.toJSON() });
-            that.$el.empty().append(html);
+            that.likesListEl.empty().append(html);
         }});
     }
 });
@@ -87,19 +109,6 @@ app.AppView = Backbone.View.extend({
         this.mutualFriendsList = new app.MutualFriendListView();
         this.mutualPhotosList = new app.MutualPhotosListView();
         this.mutualLikesList = new app.MutualLikesListView();
-
-        this.mutualFriendsList.collection.on('change', function() {
-            $('a[data-section="mutual-friends"] .count').text(this.length);
-        });
-
-        this.mutualPhotosList.collection.on('change', function() {
-            $('a[data-section="mutual-photos"] .count').text(this.length);
-        });
-
-        this.mutualLikesList.collection.on('change', function() {
-            $('a[data-section="mutual-likes"] .count').text(this.length);
-        });
-
         this.handleLocalStorage();
     },
 
