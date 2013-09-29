@@ -86,7 +86,6 @@ app.AppView = Backbone.View.extend({
         this.mutualFriendsList = new app.MutualFriendListView();
         this.mutualPhotosList = new app.MutualPhotosListView();
         this.mutualLikesList = new app.MutualLikesListView();
-        this.friend = null;
 
         this.mutualFriendsList.collection.on('change', function() {
             $('.common-friends .count').text(this.length);
@@ -99,6 +98,16 @@ app.AppView = Backbone.View.extend({
         this.mutualLikesList.collection.on('change', function() {
             $('.common-likes .count').text(this.length);
         });
+
+        this.handleLocalStorage();
+    },
+
+    handleLocalStorage: function() {
+        var friend = JSON.parse(localStorage.getItem('friend'));
+        if ( friend ) {
+            app.friend = friend;
+            this.updateFriendDetail(friend);
+        }
     },
 
     render: function() {
@@ -114,16 +123,16 @@ app.AppView = Backbone.View.extend({
 
     chooseFriend: function() {
         var id = $('#frinds-list').find('input[name="friend"]:checked').val();
-        this.friend = this.friendsList.collection.get(id);
-        app.friendId = id;
+        app.friend = this.friendsList.collection.get(id).toJSON();
         $('body').removeClass('show-modal-ex');
-        this.updateFriendDetail(this.friend);
+        this.updateFriendDetail(app.friend);
     },
 
-    updateFriendDetail: function(friend) {
+    updateFriendDetail: function( friend ) {
         if ( friend ) {
-            $('.ex-username').text(friend.get('name'));
-            $('.ex-search img').attr('src', friend.get('pic_small'));
+            localStorage.setItem('friend', JSON.stringify(friend));
+            $('.ex-username').text(friend.name);
+            $('.ex-search img').attr('src', friend.pic_small);
             this.render();
         }
     }
