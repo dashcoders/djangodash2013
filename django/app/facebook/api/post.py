@@ -45,9 +45,7 @@ class PostResource(BaseResource):
                     target_id = me()
                     AND actor_id = '{friend_facebook_id}'
                 LIMIT 10000
-            """.format(
-                friend_facebook_id=friend_facebook_id,
-            )
+            """.format(friend_facebook_id=friend_facebook_id,)
         )
 
         posts = []
@@ -65,10 +63,8 @@ class PostResource(BaseResource):
                     WHERE
                         post_id IN ({post_ids})
                     LIMIT 10000
-                """.format(
-                    friend_facebook_id=friend_facebook_id,
-                    post_ids=','.join(posts_ids),
-                )
+                """.format(friend_facebook_id=friend_facebook_id,
+                           post_ids=','.join(posts_ids),)
             )
 
             posts = query_posts.get('data')
@@ -87,9 +83,7 @@ class PostResource(BaseResource):
                     target_id = '{friend_facebook_id}'
                     AND actor_id = me()
                 LIMIT 10000
-            """.format(
-                friend_facebook_id=friend_facebook_id,
-            )
+            """.format(friend_facebook_id=friend_facebook_id,)
         )
 
         print """
@@ -99,9 +93,7 @@ class PostResource(BaseResource):
                     target_id = '{friend_facebook_id}'
                     AND actor_id = me()
                 LIMIT 10000
-            """.format(
-                friend_facebook_id=friend_facebook_id,
-            )
+            """.format(friend_facebook_id=friend_facebook_id,)
 
         posts = []
         tagged_posts = query_tags.get('data')
@@ -120,10 +112,8 @@ class PostResource(BaseResource):
                     WHERE
                         post_id IN ({post_ids})
                     LIMIT 10000
-                """.format(
-                    friend_facebook_id=friend_facebook_id,
-                    post_ids=','.join(posts_ids),
-                )
+                """.format(friend_facebook_id=friend_facebook_id,
+                           post_ids=','.join(posts_ids),)
             )
 
             posts = query_posts.get('data')
