@@ -203,6 +203,7 @@ input[type="text"]{
 .ex-search .ex-username{
 	padding-bottom: 10px;
 	font-weight: 700;
+    max-width: 155px;
 }
 
 .app-view h1{
