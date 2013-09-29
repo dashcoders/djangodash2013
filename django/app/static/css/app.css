@@ -297,27 +297,30 @@ body.show-modal-ex .modal-find-ex{
 	cursor: pointer;
 }
 
+.list-style-1 li{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.list-style-1 li:hover{
+    background: rgba(255, 255, 255, 0.9);
+}
+
 .friends-list{
     overflow: hidden;
     margin-bottom: 30px;
 }
 
 .friends-list li{
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
     float: left;
-    padding: 20px;
     width: 150px;
     height: 180px;
-    background: rgba(255, 255, 255, 0.6);
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin: 5px 5px;
-}
-
-.friends-list li:hover{
-    background: rgba(255, 255, 255, 0.9);
 }
 
 .friends-list a{
@@ -341,4 +344,34 @@ body.show-modal-ex .modal-find-ex{
     display: block;
     text-align: center;
     font-weight: 700;
+}
+
+.likes-list{
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.likes-list li{
+    margin: 0 10px 10px;
+    float: left;
+    width: 250px;
+    max-height: 90px;
+}
+
+.likes-list li a{
+    text-decoration: none;
+}
+
+.likes-list li .name{
+    font-weight: 700;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 140px;
+    font-size: 12px;
+}
+
+.likes-list li .image{
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
 }

@@ -31,7 +31,10 @@
 <script type="text/template" id="mutual-likes-template">
     <% _.each(likes, function(like) { %>
         <li>
-            <a href="<%= like.page_url %>"><%= like.name %></a>
+            <a href="<%= like.page_url %>">
+                <img class="image" src="<%= like.pic_square %>" alt="">
+                <span class="name"><%= like.name %><span>
+            </a>
         </li>
     <% }); %>
 </script>

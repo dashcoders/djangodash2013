@@ -37,7 +37,7 @@ class LikeResource(BaseResource):
 
         response = user.fql(
             """
-                SELECT page_id, name, page_url FROM page WHERE page_id IN (
+                SELECT page_id, name, page_url, pic_square FROM page WHERE page_id IN (
                     SELECT page_id FROM page_fan WHERE uid = '{friend_facebook_id}' AND page_id IN (
                         SELECT page_id FROM page_fan WHERE uid = me()
                     )
