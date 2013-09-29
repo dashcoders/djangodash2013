@@ -29,9 +29,9 @@
             <div class="app-sidebar-section">
                 <p class="app-sidebar-title">See common</p>
                 <ul>
-                    <li><a class="common-photos" href="#">Photos <span class="count">0</span></a></li>
-                    <li><a class="common-friends" href="#">Friends <span class="count">0</span></a></li>
-                    <li><a class="common-likes" href="#">Likes <span class="count">0</span></a></li>
+                    <li><a href="#" data-section="mutual-friends">Friends <span class="count">0</span></a></li>
+                    <li><a href="#" data-section="mutual-likes">Likes <span class="count">0</span></a></li>
+                    <li><a href="#" data-section="mutual-photos">Photos <span class="count">0</span></a></li>
                 </ul>
             </div>
 
@@ -44,28 +44,28 @@
         </div>
         <div class="app-content">
             <div class="app-view">
-                <div class="app-view-section">
+                <div class="app-view-section" data-section="mutual-friends">
                     <h2>Mutual Friends</h2>
                     <ol id="mutual-friends-list" class="list-style-1 friends-list">
 
                     </ol>
                 </div>
 
-                <div class="app-view-section">
+                <div class="app-view-section" data-section="mutual-likes">
                     <h2>Mutual Likes</h2>
                     <ol id="mutual-likes" class="list-style-1 likes-list">
 
                     </ol>
                 </div>
 
-                <div class="app-view-section">
+                <div class="app-view-section" data-section="mutual-photos">
                     <h2>Mutual Photos</h2>
                     <ul id="mutual-photos" class="list-style-1 photos-list">
 
                     </ul>
                 </div>
 
-                <div class="app-view-section">
+                <div class="app-view-section" data-section="mutual-posts">
                     <h2>Mutual Posts</h2>
                     <ul id="mutual-posts" class="list-style-1 post-list">
                         <li>

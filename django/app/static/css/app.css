@@ -141,6 +141,7 @@ input[type="text"]{
 }
 
 .app-view-section{
+    display: none;
     padding-bottom: 30px;
 }
 
@@ -160,6 +161,7 @@ input[type="text"]{
 
 .app-sidebar-section .count{
 	display: inline-block;
+    opacity: 0;
 	color: #fff;
 	background: red;
 	padding: 5px;
