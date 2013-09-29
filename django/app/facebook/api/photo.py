@@ -31,12 +31,9 @@ class PhotoResource(BaseResource):
         user = request.user
 
         response = user.fql({
-            'query1_tags': 'SELECT pid, xcoord, ycoord FROM photo_tag WHERE pid IN (SELECT pid FROM photo WHERE owner = \'{friend_facebook_id}\') AND subject = me()'.format(friend_facebook_id=friend_facebook_id),
-            'query2_tags': 'SELECT pid, xcoord, ycoord FROM photo_tag WHERE pid IN (SELECT pid FROM photo WHERE owner = me()) AND subject = \'{friend_facebook_id}\''.format(friend_facebook_id=friend_facebook_id),
-            'query3_tags': 'SELECT pid, xcoord, ycoord FROM photo_tag WHERE pid IN (SELECT pid FROM photo_tag WHERE subject = me()) AND subject = \'100000754284842\' AND pid IN (SELECT pid, src_big FROM photo WHERE owner = me() AND owner != \'{friend_facebook_id}\')'.format(friend_facebook_id=friend_facebook_id),
-            'query1_photos': 'SELECT pid, src_big, src_small, can_delete, caption, link FROM photo WHERE pid IN (SELECT pid FROM #query1_tags)',
-            'query2_photos': 'SELECT pid, src_big, src_small, can_delete, caption, link FROM photo WHERE pid IN (SELECT pid FROM #query2_tags)',
-            'query3_photos': 'SELECT pid, src_big, src_small, can_delete, caption, link FROM photo WHERE pid IN (SELECT pid FROM #query3_tags)',
+            'query1_photos': 'SELECT pid, src_big, src_small, caption, link FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject = {friend_facebook_id} LIMIT 100000) AND owner = me()',
+            'query2_photos': 'SELECT pid, src_big, src_small, caption, link FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject = me() LIMIT 100000) AND owner = {friend_facebook_id}',
+            'query3_photos': 'SELECT pid, src_big, src_small, caption, link FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject = me() AND pid IN (SELECT pid FROM photo_tag WHERE subject = {friend_facebook_id} LIMIT 100000) LIMIT 100000)',
         })
 
         photos = {}
