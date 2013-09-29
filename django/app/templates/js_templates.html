@@ -23,7 +23,9 @@
 <script type="text/template" id="mutual-photos-template">
     <% _.each(photos, function(photo) { %>
         <li>
-            <img src="<%= photo.src_small %>" title="<%= photo.caption %>" alt="<%= photo.caption %>">
+            <a href="<%= photo.link %>">
+                <img src="<%= photo.src_small %>" title="<%= photo.caption %>" alt="<%= photo.caption %>">
+            </a>
         </li>
     <% }); %>
 </script>

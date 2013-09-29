@@ -140,6 +140,10 @@ input[type="text"]{
 	padding: 0 15px;
 }
 
+.app-view-section{
+    padding-bottom: 30px;
+}
+
 .app-sidebar-title{
 	font-size: 16px;
 	font-weight: 700;
@@ -312,7 +316,6 @@ body.show-modal-ex .modal-find-ex{
 
 .friends-list{
     overflow: hidden;
-    margin-bottom: 30px;
 }
 
 .friends-list li{
@@ -348,7 +351,6 @@ body.show-modal-ex .modal-find-ex{
 
 .likes-list{
     overflow: hidden;
-    margin-bottom: 30px;
 }
 
 .likes-list li{
@@ -374,4 +376,14 @@ body.show-modal-ex .modal-find-ex{
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px;
+}
+
+.photos-list a{
+    display: block;
+}
+
+.photos-list li{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 10px 10px 0;
 }
