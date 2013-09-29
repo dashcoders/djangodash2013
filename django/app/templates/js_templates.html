@@ -66,7 +66,7 @@
                     <%= comment.text.replace(/\n/igm, '<br>') %>
                 </a>
                 <% if(comment.can_remove) { %>
-                    <a href="#" class="delete" data-comment-id="<%= comment.id %>">delete comment</a>
+                    <a href="#" class="delete" data-comment-id="<%= comment.id %>">delete</a>
                 <% } %>
             </li>
             <% }); %>
