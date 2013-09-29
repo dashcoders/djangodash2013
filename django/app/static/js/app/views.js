@@ -2,9 +2,6 @@ app.FriendListView = Backbone.View.extend({
     el: '#friends-list',
     template: _.template($('#friends-list-template').html()),
     collection: new app.FriendsCollection(),
-    events: {
-        'keyup #search' : 'search'
-    },
 
     initialize: function() {
         _.bindAll(this, ['render']);
@@ -52,14 +49,23 @@ app.MutualFriendListView = Backbone.View.extend({
     initialize: function() {
         _.bindAll(this, 'render', 'updateCounter');
         this.friendsListEl = $('#mutual-friends-list');
+        this.menuButton = $('a[data-section="mutual-friends"]');
         this.counterEl = $('a[data-section="mutual-friends"] .count');
         this.collection.on('change', this.updateCounter);
 
         $('.reload.friends').on('click', $.proxy(function(e) {
             $(e.target).hide();
-            $(e.target).parents('img.loader').fadeIn('fast');
+            $('.app-content img.loader').fadeIn('fast');
             this.render();
         }, this));
+    },
+
+    showLoader: function() {
+        this.menuButton.addClass('state-loading');
+    },
+
+    hideLoader: function() {
+        this.menuButton.removeClass('state-loading');
     },
 
     updateCounter: function() {
@@ -67,14 +73,17 @@ app.MutualFriendListView = Backbone.View.extend({
     },
 
     render: function() {
-        $('img.loader').hide();
-        $('.reload').fadeIn('fast');
 
         var that = this, html;
+        this.showLoader();
         this.collection.fetch({ success: function(){
             that.collection.trigger('change');
+            that.hideLoader();
             html = that.template({friends: that.collection.toJSON() });
             that.friendsListEl.empty().append(html);
+
+            $('img.loader').hide();
+            $('.reload').fadeIn('fast');
         }});
     }
 });
@@ -87,14 +96,23 @@ app.MutualPhotosListView = Backbone.View.extend({
     initialize: function() {
         _.bindAll(this, 'render', 'updateCounter');
         this.photosListEl = $('#mutual-photos');
+        this.menuButton = $('a[data-section="mutual-photos"]');
         this.counterEl = $('a[data-section="mutual-photos"] .count');
         this.collection.on('change', this.updateCounter);
 
         $('.reload.photos').on('click', $.proxy(function(e) {
             $(e.target).hide();
-            $(e.target).parents('img.loader').fadeIn('fast');
+            $('.app-content img.loader').fadeIn('fast');
             this.render();
         }, this));
+    },
+
+    showLoader: function() {
+        this.menuButton.addClass('state-loading');
+    },
+
+    hideLoader: function() {
+        this.menuButton.removeClass('state-loading');
     },
 
     updateCounter: function() {
@@ -103,7 +121,9 @@ app.MutualPhotosListView = Backbone.View.extend({
 
     render: function() {
         var that = this, html;
+        this.showLoader();
         this.collection.fetch({ success: function(){
+            that.hideLoader();
             that.collection.trigger('change');
             html = that.template({photos: that.collection.toJSON() });
             that.photosListEl.empty().append(html);
@@ -122,14 +142,23 @@ app.MutualLikesListView = Backbone.View.extend({
     initialize: function() {
         _.bindAll(this, 'render', 'updateCounter');
         this.likesListEl = $('#mutual-likes');
+        this.menuButton = $('a[data-section="mutual-likes"]');
         this.counterEl = $('a[data-section="mutual-likes"] .count');
         this.collection.on('change', this.updateCounter);
 
         $('.reload.likes').on('click', $.proxy(function(e) {
             $(e.target).hide();
-            $(e.target).parents('img.loader').fadeIn('fast');
+            $('.app-content img.loader').fadeIn('fast');
             this.render();
         }, this));
+    },
+
+    showLoader: function() {
+        this.menuButton.addClass('state-loading');
+    },
+
+    hideLoader: function() {
+        this.menuButton.removeClass('state-loading');
     },
 
     updateCounter: function() {
@@ -141,7 +170,9 @@ app.MutualLikesListView = Backbone.View.extend({
         $('.reload').fadeIn('fast');
 
         var that = this, html;
+        this.showLoader();
         this.collection.fetch({ success: function(){
+            that.hideLoader();
             that.collection.trigger('change');
             html = that.template({likes: that.collection.toJSON() });
             that.likesListEl.empty().append(html);
@@ -158,6 +189,7 @@ app.MutualPostListView = Backbone.View.extend({
 
     initialize: function() {
         _.bindAll(this, 'render', 'renderSection', 'updateCounter');
+        this.menuButton = $('a[data-section="mutual-posts"]');
         this.counterEl = $('a[data-section="mutual-posts"] .count');
         this.postsFromMeInFriendTimeline = new app.PostsFromMeInFriendTimeline();
         this.postsFromFriendInMyTimeline = new app.PostsFromFriendInMyTimeline();
@@ -171,9 +203,17 @@ app.MutualPostListView = Backbone.View.extend({
 
         $('.reload.posts').on('click', $.proxy(function(e) {
             $(e.target).hide();
-            $(e.target).parents('img.loader').fadeIn('fast');
+            $('.app-content img.loader').fadeIn('fast');
             this.render();
         }, this));
+    },
+
+    showLoader: function() {
+        this.menuButton.addClass('state-loading');
+    },
+
+    hideLoader: function() {
+        this.menuButton.removeClass('state-loading');
     },
 
     updateCounter: function() {
@@ -183,7 +223,9 @@ app.MutualPostListView = Backbone.View.extend({
 
     renderSection: function(sectionTitle, collection, element) {
         var that = this, html;
+        this.showLoader();
         collection.fetch({ success: function(){
+            that.hideLoader();
             collection.trigger('change');
             html = that.template({ posts: collection.toJSON(), sectionTitle: sectionTitle });
             element.empty().append(html);
@@ -210,6 +252,7 @@ app.MutualCommentsListView = Backbone.View.extend({
 
     initialize: function() {
         _.bindAll(this, 'render', 'renderSection', 'updateCounter');
+        this.menuButton = $('a[data-section="mutual-comments"]');
         this.counterEl = $('a[data-section="mutual-comments"] .count');
         this.commentsFromMeInPostsByFriend = new app.CommentsFromMeInPostsByFriend();
         this.commentsFromFriendInPostsByMe = new app.CommentsFromFriendInPostsByMe();
@@ -219,9 +262,17 @@ app.MutualCommentsListView = Backbone.View.extend({
 
         $('.reload.comments').on('click', $.proxy(function(e) {
             $(e.target).hide();
-            $(e.target).parents('img.loader').fadeIn('fast');
+            $('.app-content img.loader').fadeIn('fast');
             this.render();
         }, this));
+    },
+
+    showLoader: function() {
+        this.menuButton.addClass('state-loading');
+    },
+
+    hideLoader: function() {
+        this.menuButton.removeClass('state-loading');
     },
 
     updateCounter: function() {
@@ -231,7 +282,9 @@ app.MutualCommentsListView = Backbone.View.extend({
 
     renderSection: function(sectionTitle, collection, element) {
         var that = this, html;
+        this.showLoader();
         collection.fetch({ success: function(){
+            that.hideLoader();
             collection.trigger('change');
             html = that.template({ comments: collection.toJSON(), sectionTitle: sectionTitle });
             element.empty().append(html);
