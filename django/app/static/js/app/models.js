@@ -8,4 +8,6 @@ app.MutualLikesModel = Backbone.Model.extend();
 
 app.MutualPostsModel = Backbone.Model.extend();
 
+app.MutualCommentsModel = Backbone.Model.extend();
+
 app.AppModel = Backbone.Model.extend();
