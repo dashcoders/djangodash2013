@@ -259,7 +259,7 @@ app.MutualPostListView = Backbone.View.extend({
         this.hideCounter();
         this.renderSection("My posts in ex's timeline", this.postsFromMeInFriendTimeline, $("#from-me-in-friend"));
         this.renderSection("Ex's posts in my timeline", this.postsFromFriendInMyTimeline, $("#from-friend-in-me"));
-        this.renderSection("My posts tagging my ex's", this.postsFromMeTaggedByFriend, $("#from-me-tagging-friend"));
+        this.renderSection("My posts tagging my ex", this.postsFromMeTaggedByFriend, $("#from-me-tagging-friend"));
         this.renderSection("Ex's posts tagging me", this.postsFromFriendTaggingMe, $("#from-friend-tagging-me"));
     }
 });
@@ -316,7 +316,9 @@ app.MutualCommentsListView = Backbone.View.extend({
                 type: 'DELETE',
                 url: '/facebook/api/comment/' + commentId + '/',
                 success: function() {
-                    button.parents('li').remove();
+                    button.parents('li').fadeOut(function(){
+                        $(this).remove();
+                    });
                 }
             });
         }
@@ -340,7 +342,7 @@ app.MutualCommentsListView = Backbone.View.extend({
         $('img.loader').hide();
         $('.reload').fadeIn('fast');
         this.hideCounter();
-        this.renderSection("Comments from me in posts by my ex's", this.commentsFromMeInPostsByFriend, $("#comments-from-me"));
+        this.renderSection("Comments from me in posts by my ex", this.commentsFromMeInPostsByFriend, $("#comments-from-me"));
         this.renderSection("Comments from my ex's in posts by me", this.commentsFromFriendInPostsByMe, $("#comments-from-friend"));
     }
 });
