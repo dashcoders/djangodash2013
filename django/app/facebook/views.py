@@ -45,6 +45,7 @@ class FacebookLoginView(View):
             else:
                 error = 'AUTH_FAILED'
 
+            return redirect('app')
         else:
             return HttpResponseRedirect(
                 'https://graph.facebook.com/oauth/authorize?%s' % urlencode({
@@ -54,4 +55,3 @@ class FacebookLoginView(View):
                 })
             )
 
-        return redirect('app')
