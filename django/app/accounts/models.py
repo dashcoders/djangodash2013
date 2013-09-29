@@ -31,8 +31,7 @@ class User(AbstractUser):
         return response.json()
 
     def graph_delete(self, url, params={}):
-
-        url = 'https://graph.facebook.com' + url
+        url = 'https://graph.facebook.com/' + url
 
         params.update({
             'access_token': self.facebook_access_token,
@@ -47,7 +46,7 @@ class User(AbstractUser):
 
     def graph_get(self, url, params={}):
 
-        url = 'https://graph.facebook.com' + url
+        url = 'https://graph.facebook.com/' + url
 
         params.update({
             'access_token': self.facebook_access_token,
