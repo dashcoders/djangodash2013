@@ -8,9 +8,16 @@ from django.conf import settings
 class FacebookBackend(object):
 
     def authenticate(self, token):
-        facebook_profile = self.get_facebook_profile(token)
+        response_profile = requests.get(
+            'https://graph.facebook.com/me/',
+            params={
+                'access_token': token,
+            }
+        )
 
-        if 'error' in facebook_profile.keys():
+        facebook_profile = response_profile.json()
+
+        if 'error' in facebook_profile:
             return None
 
         try:
@@ -31,18 +38,6 @@ class FacebookBackend(object):
         user.save()
 
         return user
-
-    def get_facebook_profile(self, token):
-        url = 'https://graph.facebook.com/me/'
-
-        response = requests.get(
-            url,
-            params={
-                'access_token': token,
-            },
-        )
-
-        return response.json()
 
     def get_user(self, user_id):
         try:
