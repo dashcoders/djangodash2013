@@ -291,6 +291,11 @@ body.show-modal-ex .modal-find-ex{
 .user-list-modal li{
 	padding: 10px 0;
 	border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.user-list-modal li input {
+    display: none;
 }
 
 .user-list-modal label,

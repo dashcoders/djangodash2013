@@ -1,7 +1,10 @@
 app.FriendListView = Backbone.View.extend({
-    el: '#frinds-list',
+    el: '#friends-list',
     template: _.template($('#friends-list-template').html()),
     collection: new app.FriendsCollection(),
+    events: {
+        'keyup #search' : 'search'
+    },
 
     initialize: function() {
         _.bindAll(this, ['render']);
@@ -120,8 +123,9 @@ app.AppView = Backbone.View.extend({
 
     events: {
         'click .ex-info a' : 'showFriendsList',
-        'click .modal-find-ex button' : 'chooseFriend',
-        'click a[data-section]' : 'showSection'
+        'click .modal-find-ex button' : 'closeModal',
+        'click a[data-section]' : 'showSection',
+        'click #friends-list li': 'chooseFriend'
     },
 
     initialize: function() {
@@ -159,8 +163,18 @@ app.AppView = Backbone.View.extend({
         $('body').addClass('show-modal-ex');
     },
 
-    chooseFriend: function() {
-        var id = $('#frinds-list').find('input[name="friend"]:checked').val();
+    closeModal: function() {
+        $('body').removeClass('show-modal-ex');
+    },
+
+    chooseFriend: function(e) {
+        var $li = $(e.target),
+            id;
+
+        $li.find('input').attr('checked', 'checked');
+
+        id = $('#friends-list').find('input[name="friend"]:checked').val();
+
         app.friend = this.friendsList.collection.get(id).toJSON();
         $('body').removeClass('show-modal-ex');
         this.updateFriendDetail(app.friend);
