@@ -15,7 +15,7 @@ class CommentResource(BaseResource):
         The standard URLs this ``Resource`` should respond to.
         """
         return [
-            url(r"^(?P<resource_name>%s)/mutual/(?P<friend_facebook_id>\d+)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_mutual'), name="api_dispatch_mutual"),
+            url(r"^(?P<resource_name>%s)/with/(?P<friend_facebook_id>\d+)%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('dispatch_mutual'), name="api_dispatch_mutual"),
         ]
 
     def dispatch_mutual(self, request, **kwargs):
