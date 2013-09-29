@@ -203,6 +203,7 @@ input[type="text"]{
 .ex-search .ex-username{
 	padding-bottom: 10px;
 	font-weight: 700;
+    max-width: 155px;
 }
 
 .app-view h1{
@@ -217,17 +218,18 @@ input[type="text"]{
 }
 
 .app-view h3{
-	font-size: 26px;
+	font-size: 22px;
 	font-weight: 700;
+    margin-bottom: 20px;
 }
 
 .app-view h4{
-	font-size: 22px;
+	font-size: 18px;
 	font-weight: 700;
 }
 
 .app-view h5, .app-view h6{
-	font-size: 26px;
+	font-size: 16px;
 	font-weight: 700;
 }
 
@@ -401,6 +403,10 @@ body.show-modal-ex .modal-find-ex{
     display: inline-block;
     vertical-align: middle;
     margin: 0 10px 10px 0;
+}
+
+.post-list li{
+    margin-bottom: 10px;
 }
 
 #search {

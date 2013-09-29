@@ -8,6 +8,10 @@ class CommentResource(BaseResource):
 
     class Meta(BaseResource):
         related_name = 'comment'
+
+        detail_uri_name = 'id'
+
+        detail_allowed_methods = ['delete']
         in_posts_by_friend_allowed_methods = ['get']
 
     def base_urls(self):
@@ -17,10 +21,23 @@ class CommentResource(BaseResource):
                 self.wrap_view('dispatch_in_posts_by_friend'),
                 name="api_dispatch_in_posts_by_friend"
             ),
+            url(
+                r"^(?P<resource_name>%s)/(?P<%s>\w[\w/-_]*)%s$" % (self._meta.resource_name, self._meta.detail_uri_name, trailing_slash()),
+                self.wrap_view('dispatch_detail'),
+                name="api_dispatch_detail"
+            ),
         ]
 
     def dispatch_in_posts_by_friend(self, request, **kwargs):
         return self.dispatch('in_posts_by_friend', request, **kwargs)
+
+    def delete_detail(self, request, **kwargs):
+        user = request.user
+        comment_id = kwargs.get('id')
+
+        success = user.graph_delete(comment_id)
+
+        return self.create_response(request, success)
 
     def get_in_posts_by_friend(self, request, **kwargs):
         user = request.user
@@ -29,7 +46,7 @@ class CommentResource(BaseResource):
 
         query_comments = user.fql(
             """
-                SELECT post_id, text
+                SELECT post_id, text, attachment, id, can_remove
                 FROM comment
                 WHERE
                     post_id IN (SELECT post_id FROM stream WHERE source_id = {to_facebook_id} LIMIT 1000000)

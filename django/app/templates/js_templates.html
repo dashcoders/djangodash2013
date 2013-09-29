@@ -40,3 +40,18 @@
         </li>
     <% }); %>
 </script>
+
+<script type="text/template" id="mutual-posts-template">
+    <% if(posts.length) { %>
+        <h3><%= sectionTitle %></h3>
+        <ul id="mutual-posts" class="list-style-1 post-list">
+            <% _.each(posts, function(post) { %>
+            <li>
+                <a href="<%= post.permalink %>">
+                    <%= post.message %>
+                </a>
+            </li>
+            <% }); %>
+        </ul>
+    <% } %>
+</script>
