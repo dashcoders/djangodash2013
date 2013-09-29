@@ -36,8 +36,6 @@ app.FriendListView = Backbone.View.extend({
         this.$img.fadeOut();
         var html = this.template({friends: this.collection.toJSON() });
         this.$el.empty().append(html);
-
-        console.log(this.collection.toJSON())
     }
 });
 
@@ -120,7 +118,7 @@ app.MutualLikesListView = Backbone.View.extend({
 });
 
 app.MutualPostListView = Backbone.View.extend({
-    el: 'div[data-section="mutual-photos"]',
+    el: 'div[data-section="mutual-posts"]',
     template: _.template($('#mutual-posts-template').html()),
 
     initialize: function() {
@@ -159,6 +157,40 @@ app.MutualPostListView = Backbone.View.extend({
     }
 });
 
+app.MutualCommentsListView = Backbone.View.extend({
+    el: 'div[data-section="mutual-comments"]',
+    template: _.template($('#mutual-comments-template').html()),
+
+    initialize: function() {
+        _.bindAll(this, 'render', 'renderSection', 'updateCounter');
+        this.counterEl = $('a[data-section="mutual-comments"] .count');
+        this.commentsFromMeInPostsByFriend = new app.CommentsFromMeInPostsByFriend();
+        this.commentsFromFriendInPostsByMe = new app.CommentsFromFriendInPostsByMe();
+
+        this.commentsFromMeInPostsByFriend.on('change', this.updateCounter);
+        this.commentsFromFriendInPostsByMe.on('change', this.updateCounter);
+    },
+
+    updateCounter: function() {
+        var sum = this.commentsFromMeInPostsByFriend.length + this.commentsFromFriendInPostsByMe.length;
+        this.counterEl.css('opacity', 0).text(sum).fadeTo(300, 1);
+    },
+
+    renderSection: function(sectionTitle, collection, element) {
+        var that = this, html;
+        collection.fetch({ success: function(){
+            collection.trigger('change');
+            html = that.template({ comments: collection.toJSON(), sectionTitle: sectionTitle });
+            element.empty().append(html);
+        }});
+    },
+
+    render: function() {
+        this.renderSection("Comments from me in posts by my ex's", this.commentsFromMeInPostsByFriend, $("#comments-from-me"));
+        this.renderSection("Comments from my ex's in posts by me", this.commentsFromFriendInPostsByMe, $("#comments-from-friend"));
+    }
+});
+
 app.AppView = Backbone.View.extend({
     el: '#app',
 
@@ -176,6 +208,7 @@ app.AppView = Backbone.View.extend({
         this.mutualPhotosList = new app.MutualPhotosListView();
         this.mutualLikesList = new app.MutualLikesListView();
         this.mutualPostList = new app.MutualPostListView();
+        this.mutualCommentsList = new app.MutualCommentsListView();
         this.handleLocalStorage();
     },
 
@@ -192,9 +225,10 @@ app.AppView = Backbone.View.extend({
 
     render: function() {
         this.mutualFriendsList.render();
-        this.mutualPhotosList.render();
         this.mutualLikesList.render();
+        this.mutualPhotosList.render();
         this.mutualPostList.render();
+        this.mutualCommentsList.render();
     },
 
     showSection: function( event ) {

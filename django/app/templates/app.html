@@ -32,6 +32,7 @@
                     <li><a href="#" data-section="mutual-likes">Likes <span class="count">0</span></a></li>
                     <li><a href="#" data-section="mutual-photos">Photos <span class="count">0</span></a></li>
                     <li><a href="#" data-section="mutual-posts">Posts <span class="count">0</span></a></li>
+                    <li><a href="#" data-section="mutual-comments">Comments <span class="count">0</span></a></li>
                 </ul>
             </div>
 
@@ -80,6 +81,16 @@
                     <div id="from-friend-tagging-me">
                     </div>
                 </div>
+
+                <div class="app-view-section" data-section="mutual-comments">
+                    <h2>Mutual Comments</h2>
+
+                    <div id="comments-from-me">
+                    </div>
+
+                    <div id="comments-from-friend">
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -118,5 +129,16 @@
     <script src="{{ STATIC_URL }}js/app/collections.js"></script>
     <script src="{{ STATIC_URL }}js/app/views.js"></script>
     <script src="{{ STATIC_URL }}js/app/main.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-44399398-1', 'forgetmyex.net');
+      ga('send', 'pageview');
+
+    </script>
 </body>
 </html>

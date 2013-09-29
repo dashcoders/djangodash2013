@@ -51,3 +51,17 @@ app.PostsFromFriendTaggingMe = Backbone.Collection.extend({
         return '/facebook/api/post/from/'+ app.friend.uid +'/tagged/me/';
     }
 });
+
+app.CommentsFromMeInPostsByFriend = Backbone.Collection.extend({
+    model: app.MutualCommentsModel,
+    url: function() {
+        return '/facebook/api/comment/from/me/in_posts_by/' + app.friend.uid + '/';
+    }
+});
+
+app.CommentsFromFriendInPostsByMe = Backbone.Collection.extend({
+    model: app.MutualCommentsModel,
+    url: function() {
+        return '/facebook/api/comment/from/'+ app.friend.uid +'/in_posts_by/me/';
+    }
+});
