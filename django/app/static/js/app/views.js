@@ -22,6 +22,7 @@ app.FriendListView = Backbone.View.extend({
 
         search = $(e.target).val().toLowerCase().latinize();
 
+        $(this.el).find('li').show();
         $(this.el).find('li').filter(function(index) {
             var name = $(this).data('name').toLowerCase().latinize();
 
@@ -35,6 +36,8 @@ app.FriendListView = Backbone.View.extend({
         this.$img.fadeOut();
         var html = this.template({friends: this.collection.toJSON() });
         this.$el.empty().append(html);
+
+        console.log(this.collection.toJSON())
     }
 });
 
@@ -181,6 +184,9 @@ app.AppView = Backbone.View.extend({
         if ( friend ) {
             app.friend = friend;
             this.updateFriendDetail(friend);
+        }
+        else {
+            $('body').addClass('show-modal-ex');
         }
     },
 
