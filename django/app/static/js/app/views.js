@@ -68,13 +68,17 @@ app.MutualFriendListView = Backbone.View.extend({
         this.menuButton.removeClass('state-loading');
     },
 
+    hideCounter: function() {
+        this.counterEl.fadeTo(300, 0);
+    },
+
     updateCounter: function() {
         this.counterEl.css('opacity', 0).text(this.collection.length).fadeTo(300, 1);
     },
 
     render: function() {
-
         var that = this, html;
+        this.hideCounter();
         this.showLoader();
         this.collection.fetch({ success: function(){
             that.collection.trigger('change');
@@ -115,12 +119,17 @@ app.MutualPhotosListView = Backbone.View.extend({
         this.menuButton.removeClass('state-loading');
     },
 
+    hideCounter: function() {
+        this.counterEl.fadeTo(300, 0);
+    },
+
     updateCounter: function() {
         this.counterEl.css('opacity', 0).text(this.collection.length).fadeTo(300, 1);
     },
 
     render: function() {
         var that = this, html;
+        this.hideCounter();
         this.showLoader();
         this.collection.fetch({ success: function(){
             that.hideLoader();
@@ -161,6 +170,10 @@ app.MutualLikesListView = Backbone.View.extend({
         this.menuButton.removeClass('state-loading');
     },
 
+    hideCounter: function() {
+        this.counterEl.fadeTo(300, 0);
+    },
+
     updateCounter: function() {
         this.counterEl.css('opacity', 0).text(this.collection.length).fadeTo(300, 1);
     },
@@ -170,6 +183,7 @@ app.MutualLikesListView = Backbone.View.extend({
         $('.reload').fadeIn('fast');
 
         var that = this, html;
+        this.hideCounter();
         this.showLoader();
         this.collection.fetch({ success: function(){
             that.hideLoader();
@@ -216,6 +230,10 @@ app.MutualPostListView = Backbone.View.extend({
         this.menuButton.removeClass('state-loading');
     },
 
+    hideCounter: function() {
+        this.counterEl.fadeTo(300, 0);
+    },
+
     updateCounter: function() {
         var sum = this.postsFromMeInFriendTimeline.length + this.postsFromFriendInMyTimeline.length + this.postsFromMeTaggedByFriend.length + this.postsFromFriendTaggingMe.length;
         this.counterEl.css('opacity', 0).text(sum).fadeTo(300, 1);
@@ -238,7 +256,7 @@ app.MutualPostListView = Backbone.View.extend({
     render: function() {
         $('img.loader').hide();
         $('.reload').fadeIn('fast');
-
+        this.hideCounter();
         this.renderSection("My posts in ex's timeline", this.postsFromMeInFriendTimeline, $("#from-me-in-friend"));
         this.renderSection("Ex's posts in my timeline", this.postsFromFriendInMyTimeline, $("#from-friend-in-me"));
         this.renderSection("My posts tagging my ex's", this.postsFromMeTaggedByFriend, $("#from-me-tagging-friend"));
@@ -275,6 +293,10 @@ app.MutualCommentsListView = Backbone.View.extend({
         this.menuButton.removeClass('state-loading');
     },
 
+    hideCounter: function() {
+        this.counterEl.fadeTo(300, 0);
+    },
+
     updateCounter: function() {
         var sum = this.commentsFromMeInPostsByFriend.length + this.commentsFromFriendInPostsByMe.length;
         this.counterEl.css('opacity', 0).text(sum).fadeTo(300, 1);
@@ -297,7 +319,7 @@ app.MutualCommentsListView = Backbone.View.extend({
     render: function() {
         $('img.loader').hide();
         $('.reload').fadeIn('fast');
-
+        this.hideCounter();
         this.renderSection("Comments from me in posts by my ex's", this.commentsFromMeInPostsByFriend, $("#comments-from-me"));
         this.renderSection("Comments from my ex's in posts by me", this.commentsFromFriendInPostsByMe, $("#comments-from-friend"));
     }
@@ -336,11 +358,16 @@ app.AppView = Backbone.View.extend({
     },
 
     render: function() {
+        this.hideAllSections();
         this.mutualFriendsList.render();
         this.mutualLikesList.render();
         this.mutualPhotosList.render();
         this.mutualPostList.render();
         this.mutualCommentsList.render();
+    },
+
+    hideAllSections: function() {
+        $('div[data-section]').hide();
     },
 
     showSection: function( event ) {
