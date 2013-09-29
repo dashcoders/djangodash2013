@@ -153,6 +153,10 @@ input[type="text"]{
     padding-bottom: 30px;
 }
 
+.app-view-section p {
+    margin-bottom: 15px;
+}
+
 .app-sidebar-title{
 	font-size: 16px;
 	font-weight: 700;
