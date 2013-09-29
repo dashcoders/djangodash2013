@@ -84,16 +84,18 @@
         <div class="app-modal modal-find-ex">
             <div class="app-modal-header">
                 <h3 class="title">Find your ex</h3>
+                <div>
+                    <label for="seach">Search:</label>
+                    <input type="text" id="search">
+                </div>
             </div>
             <div class="app-modal-content">
-                <label for="seach">Search:</label>
-                <input type="text" id="search">
                 <img src="{{ STATIC_URL }}img/ajax-loader.gif" class="loader">
                 <ul id="friends-list"class="user-list-modal">
                 </ul>
             </div>
             <div class="app-modal-footer button-right">
-                <button class="button">ok</button>
+                <button class="button">close</button>
             </div>
         </div>
     </div>

@@ -266,6 +266,7 @@ body.show-modal-ex .modal-find-ex{
 
 .app-modal-header{
 	border-bottom: 1px solid #ddd;
+    height: 37px;
 }
 
 .app-modal-footer{
@@ -281,11 +282,18 @@ body.show-modal-ex .modal-find-ex{
 .app-modal-content{
 	max-height: 200px;
 	overflow-y:scroll;
+    clear: both;
 }
 
 .app-modal-header .title{
 	font-size: 26px;
 	font-weight: 700;
+    float: left;
+    margin-top: 7px;
+}
+
+.app-modal-header > div {
+    float: right;
 }
 
 .user-list-modal li{
