@@ -1,0 +1,177 @@
+body{
+    font-family: 'Ubuntu', sans-serif;
+    color: #666;
+    font-size: 14px;
+}
+
+a, a:hover {
+    text-decoration: none;
+}
+
+.header {
+    height: 620px;
+    clear: both;
+    background: url('/static/img/bg.jpg') no-repeat center top;
+    position: relative;
+}
+
+.header h1 {
+    background: url('/static/img/logo.png') no-repeat;
+    text-indent: -99999px;
+    width: 600px;
+    height: 150px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.header a {
+    background: url('/static/img/facebook-login.png') no-repeat;
+    width: 224px;
+    height: 50px;
+    margin: auto;
+    position: absolute;
+    top: 280px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.menu {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 999;
+}
+
+.menu .wrapper {
+    position: relative;
+    z-index: 9999;
+    width: 980px;
+    margin: auto;
+}
+
+.menu .wrapper * {
+    float: left;
+}
+
+.menu .wrapper > img {
+    margin-top: 7px;
+}
+
+.menu ul {
+    margin-top: 28px;
+    margin-left: 60px;
+}
+
+.menu li {
+    float: left;
+    margin-right: 20px;
+}
+
+.menu li a {
+    color: #FFF;
+    font-size: 22px;
+    font-family: 'Ubuntu', sans-serif;
+
+    -webkit-transition: all 0.4s ease;
+       -moz-transition: all 0.4s ease;
+        -ms-transition: all 0.4s ease;
+         -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+}
+
+.menu li a:hover {
+    text-decoration: none;
+    color: #ef2323;
+}
+
+.menu a.fblogin {
+    float: right;
+    text-indent: -9999px;
+    background: url('/static/img/facebook-login.png') no-repeat;
+    width: 224px;
+    height: 50px;
+    margin-top: 13px;
+}
+
+.container {
+    width: 974px;
+    margin: auto;
+}
+
+.about {
+    background-color: #f6f6f6;
+    min-height: 280px;
+}
+
+.about .spot {
+    width: 385px;
+    height: 85px;
+    float: left;
+    margin-right: 50px;
+    margin-left: 50px;
+    margin-top: 40px;
+}
+
+.about .spot p {
+    width: 300px;
+    font-size: 14px;
+}
+
+.about .spot:hover i {
+    color: #ef2323;
+
+    -webkit-transition: all 0.4s ease;
+       -moz-transition: all 0.4s ease;
+        -ms-transition: all 0.4s ease;
+         -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+}
+
+.credits h2 {
+    color: #666;
+    font-weight: 500;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: 10px;
+}
+
+.credits h3 {
+    font-size: 14px;
+    font-weight: 500;
+    float: left;
+    margin-top: 18px;
+    margin-left: 20px;
+}
+
+.credits ul {
+    height: 110px;
+    float: left;
+}
+
+.credits li {
+    float: left;
+    margin-right: 20px;
+    margin-left: 10px;
+
+    -webkit-transition: all 0.4s ease;
+       -moz-transition: all 0.4s ease;
+        -ms-transition: all 0.4s ease;
+         -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+}
+
+.credits li:hover {
+    opacity: 0.6;
+}
+
+.credits {
+    min-height: 100px;
+}

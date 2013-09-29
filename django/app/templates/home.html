@@ -1,90 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Django Dash 2013</title>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/main.css">
+    <title>forget my ex</title>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/home.css">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
-<h1>forgetmyex.net</h1>
-
-    {% if messages %}
-        {% for message in messages %}
-            <p>{{ message.tags }}: {{ message }}</p>
-        {% endfor %}
-    {% endif %}
-
-    {% if request.user.is_authenticated %}
-    	{{ request.user.get_full_name }}
-    {% endif %}
-
-    <a href="https://graph.facebook.com/oauth/authorize?client_id={{ FACEBOOK_APP_ID }}&redirect_uri={{ FACEBOOK_REDIRECT_URI }}&scope={{ FACEBOOK_SCOPES }}">Facebook Login</a>
-    <div id="app">
-        <section id="frind-select" class="scroll">
-            <h2>Friends Select</h2>
-            <form action=".">
-                <ol id="frinds-list">
-
-                </ol>
-                <button type="submit">select</button>
-            </form>
-        </section>
-
-        <section class="scroll">
-            <h2>Mutual Friends</h2>
-            <ol id="mutual-friends-list">
-
-            </ol>
-        </section>
-
-        <section class="scroll">
-            <h2>Mutual Likes</h2>
-            <ol id="mutual-likes">
-
-            </ol>
-        </section>
-
-        <section class="scroll">
-            <h2>Mutual Photos</h2>
-            <ul id="mutual-photos" class="list-inline">
-
+    <div class="menu">
+        <div class="wrapper">
+            <img src="{{ STATIC_URL }}img/small_logo.png">
+            <ul>
+                <li><a href="#about">about</a></li>
+                <li><a href="#about">why forget?</a></li>
+                <li><a href="#credits">credits</a></li>
             </ul>
-        </section>
+            <a class="fblogin" href="https://graph.facebook.com/oauth/authorize?client_id={{ FACEBOOK_APP_ID }}&redirect_uri={{ FACEBOOK_REDIRECT_URI }}&scope={{ FACEBOOK_SCOPES }}">login with facebook</a>
+        </div>
+    </div>
+    <div class="header">
+        <h1>forget my ex</h1>
+        <a href="https://graph.facebook.com/oauth/authorize?client_id={{ FACEBOOK_APP_ID }}&redirect_uri={{ FACEBOOK_REDIRECT_URI }}&scope={{ FACEBOOK_SCOPES }}"></a>
     </div>
 
-    <script type="text/template" id="friends-list-template">
-        <% _.each(friends, function(friend) { %>
-            <li>
-                <input type="radio" name="friend" id="friend_id_<%= friend.uid %>">
-                <label for="friend_id_<%= friend.uid %>">
-                    <img src="<%= friend.pic_small %>"><%= friend.name %>
-                </label>
-            </li>
-        <% }); %>
-    </script>
+    <div class="about" id="about">
+        <div class="container">
+            <div class="spot">
+                <i class="icon-heart icon-4x pull-left"></i>
+                <p class="pull-left">
+                    You have to move on! Leave the past behind, forget what happened, and enjoy your awesome future!
+                </p>
+            </div>
+            <div class="spot">
+                <i class="icon-meh icon-4x pull-left"></i>
+                <p class="pull-left">
+                    With forget my ex you can delete all your data on facebook related to your ex. We know that keeping that is annoying.
+                </p>
+            </div>
+            <div class="spot">
+                <i class="icon-trash icon-4x pull-left"></i>
+                <p class="pull-left">
+                    Remove everything that can make you remember that disgusting person that you used to know... Luckly not anymore!
+                </p>
+            </div>
+            <div class="spot">
+                <i class="icon-cloud-download icon-4x pull-left"></i>
+                <p class="pull-left">
+                    But if by chance you come back dating, you can download all your data and readd to facebook.
+                </p>
+            </div>
+        </div>
+    </div>
 
-    <script type="text/template" id="mutual-photos-template">
-        <% _.each(photos, function(photo) { %>
-            <li>
-                <img src="<%= photo.src_small %>" title="<%= photo.caption %>" alt="<%= photo.caption %>">
-            </li>
-        <% }); %>
-    </script>
+    <div class="credits" id="credits">
+        <div class="container">
+            <h2>team</h2>
+            <ul>
+                <li>
+                    <a href="https://github.com/carlosrberto" target="_blank">
+                        <img class="img-circle" src="http://www.gravatar.com/avatar/82165b1bc1eb73dfe2c8657e5e504a1c">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/silviomoreto" target="_blank">
+                        <img class="img-circle" src="http://www.gravatar.com/avatar/d350734c10af93c3807434a580f4c960">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/viniciuscainelli" target="_blank">
+                        <img class="img-circle" src="http://www.gravatar.com/avatar/1d7c4bdafee7515d4088934834c87091">
+                    </a>
+                </li>
+            </ul>
+            <h3>forget my ex was developed for <a href="http://djangodash.com/" target="_blank">django dash 2013</a> by team <a href="https://github.com/dashcoders/djangodash2013" target="_blank">dashcoders</a></h3>
+        </div>
+    </div>
 
-    <script type="text/template" id="mutual-likes-template">
-        <% _.each(likes, function(like) { %>
-            <li>
-                <a href="<%= like.page_url %>"><%= like.name %></a>
-            </li>
-        <% }); %>
-    </script>
-
-    <script src="{{ STATIC_URL }}js/libs/jquery.js"></script>
-    <script src="{{ STATIC_URL }}js/libs/underscore.js"></script>
-    <script src="{{ STATIC_URL }}js/libs/backbone.js"></script>
-    <script src="{{ STATIC_URL }}js/app/init.js"></script>
-    <script src="{{ STATIC_URL }}js/app/models.js"></script>
-    <script src="{{ STATIC_URL }}js/app/collections.js"></script>
-    <script src="{{ STATIC_URL }}js/app/views.js"></script>
-    <script src="{{ STATIC_URL }}js/app/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Django Dash 2013</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/main.css">
+</head>
+<body>
+<h1>forgetmyex.net</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message.tags }}: {{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    {% if request.user.is_authenticated %}
+    	{{ request.user.get_full_name }}
+    {% endif %}
+
+    <a href="https://graph.facebook.com/oauth/authorize?client_id={{ FACEBOOK_APP_ID }}&redirect_uri={{ FACEBOOK_REDIRECT_URI }}&scope={{ FACEBOOK_SCOPES }}">Facebook Login</a>
+    <div id="app">
+        <section id="frind-select" class="scroll">
+            <h2>Friends Select</h2>
+            <form action=".">
+                <ol id="frinds-list">
+
+                </ol>
+                <button type="submit">select</button>
+            </form>
+        </section>
+
+        <section class="scroll">
+            <h2>Mutual Friends</h2>
+            <ol id="mutual-friends-list">
+
+            </ol>
+        </section>
+
+        <section class="scroll">
+            <h2>Mutual Likes</h2>
+            <ol id="mutual-likes">
+
+            </ol>
+        </section>
+
+        <section class="scroll">
+            <h2>Mutual Photos</h2>
+            <ul id="mutual-photos" class="list-inline">
+
+            </ul>
+        </section>
+    </div>
+
+    <script type="text/template" id="friends-list-template">
+        <% _.each(friends, function(friend) { %>
+            <li>
+                <input type="radio" name="friend" id="friend_id_<%= friend.uid %>">
+                <label for="friend_id_<%= friend.uid %>">
+                    <img src="<%= friend.pic_small %>"><%= friend.name %>
+                </label>
+            </li>
+        <% }); %>
+    </script>
+
+    <script type="text/template" id="mutual-photos-template">
+        <% _.each(photos, function(photo) { %>
+            <li>
+                <img src="<%= photo.src_small %>" title="<%= photo.caption %>" alt="<%= photo.caption %>">
+            </li>
+        <% }); %>
+    </script>
+
+    <script type="text/template" id="mutual-likes-template">
+        <% _.each(likes, function(like) { %>
+            <li>
+                <a href="<%= like.page_url %>"><%= like.name %></a>
+            </li>
+        <% }); %>
+    </script>
+
+    <script src="{{ STATIC_URL }}js/libs/jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/underscore.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/backbone.js"></script>
+    <script src="{{ STATIC_URL }}js/app/init.js"></script>
+    <script src="{{ STATIC_URL }}js/app/models.js"></script>
+    <script src="{{ STATIC_URL }}js/app/collections.js"></script>
+    <script src="{{ STATIC_URL }}js/app/views.js"></script>
+    <script src="{{ STATIC_URL }}js/app/main.js"></script>
+</body>
+</html>
