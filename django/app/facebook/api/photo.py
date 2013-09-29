@@ -31,9 +31,9 @@ class PhotoResource(BaseResource):
         user = request.user
 
         response = user.fql({
-            'query1_photos': 'SELECT pid, src_big, src_small, caption, link FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject = {friend_facebook_id} LIMIT 100000) AND owner = me()',
-            'query2_photos': 'SELECT pid, src_big, src_small, caption, link FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject = me() LIMIT 100000) AND owner = {friend_facebook_id}',
-            'query3_photos': 'SELECT pid, src_big, src_small, caption, link FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject = me() AND pid IN (SELECT pid FROM photo_tag WHERE subject = {friend_facebook_id} LIMIT 100000) LIMIT 100000)',
+            'query1_photos': 'SELECT pid, src_big, src_small, caption, link FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject = {friend_facebook_id} LIMIT 100000) AND owner = me()'.format(friend_facebook_id=friend_facebook_id),
+            'query2_photos': 'SELECT pid, src_big, src_small, caption, link FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject = me() LIMIT 100000) AND owner = {friend_facebook_id}'.format(friend_facebook_id=friend_facebook_id),
+            'query3_photos': 'SELECT pid, src_big, src_small, caption, link FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject = me() AND pid IN (SELECT pid FROM photo_tag WHERE subject = {friend_facebook_id} LIMIT 100000) LIMIT 100000)'.format(friend_facebook_id=friend_facebook_id),
         })
 
         photos = {}
