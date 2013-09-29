@@ -16,17 +16,23 @@ app.FriendListView = Backbone.View.extend({
 
 app.MutualFriendListView = Backbone.View.extend({
 	el: '#mutual-friends-list',
-	template: _.template($('#friends-list-template').html()),
+	template: _.template($('#mutual-friends-list-template').html()),
 	collection: new app.MutualFriendsCollection(),
 
 	initialize: function() {
 		_.bindAll(this, ['render']);
-		this.collection.fetch({ success: this.render });
 	},
 
-	render: function() {
-		var html = this.template({friends: this.collection.toJSON() });
-		this.$el.empty().append(html);
+	render: function(id) {
+		if ( id ) {
+			var that = this, html;
+			this.collection.url = '/facebook/api/friend/mutual/'+ id +'/';
+			this.collection.fetch({ success: function(){
+				that.collection.trigger('change');
+				html = that.template({friends: that.collection.toJSON() });
+				that.$el.empty().append(html);
+			}});
+		}
 	}
 });
 
@@ -37,13 +43,19 @@ app.MutualPhotosListView = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this, ['render']);
-		this.collection.fetch({ success: this.render });
 	},
 
-	render: function() {
-		var html = this.template({photos: this.collection.toJSON() });
-		this.$el.empty().append(html);
-	}
+	render: function(id) {
+		if ( id ) {
+			var that = this, html;
+			this.collection.url = '/facebook/api/photo/with/'+ id +'/';
+			this.collection.fetch({ success: function(){
+				that.collection.trigger('change');
+				html = that.template({photos: that.collection.toJSON() });
+				that.$el.empty().append(html);
+			}});
+		}
+	},
 });
 
 app.MutualLikesListView = Backbone.View.extend({
@@ -53,11 +65,72 @@ app.MutualLikesListView = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this, ['render']);
-		this.collection.fetch({ success: this.render });
+	},
+
+	render: function(id) {
+		if ( id ) {
+			var that = this, html;
+			this.collection.url = '/facebook/api/like/with/'+ id +'/';
+			this.collection.fetch({ success: function(){
+				that.collection.trigger('change');
+				html = that.template({likes: that.collection.toJSON() });
+				that.$el.empty().append(html);
+			}});
+		}
+	}
+});
+
+
+app.AppView = Backbone.View.extend({
+	el: '#app',
+
+	events: {
+		'click .ex-info a' : 'showFriendsList',
+		'click .modal-find-ex button' : 'chooseFriend'
+	},
+
+	initialize: function() {
+		var that = this;
+		this.friendsList = new app.FriendListView();
+		this.mutualFriendsList = new app.MutualFriendListView();
+		this.mutualPhotosList = new app.MutualPhotosListView();
+		this.mutualLikesList = new app.MutualLikesListView();
+		this.friend = null;
+
+		// this.mutualFriendsList.collection.on('change', function() {
+		// 	that.updateMenuCounters();
+		// });
 	},
 
 	render: function() {
-		var html = this.template({likes: this.collection.toJSON() });
-		this.$el.empty().append(html);
+		this.mutualFriendsList.render(this.friend.id);
+		this.mutualPhotosList.render(this.friend.id);
+		this.mutualLikesList.render(this.friend.id);
+	},
+
+	updateMenuCounters: function() {
+		// $('.common-photos .count').text(this.mutualPhotosList.length);
+		// $('.common-friends .count').text(this.mutualFriendsList.length);
+		// $('.common-likes .count').text(this.mutualLikesList.length);
+	},
+
+	showFriendsList: function( event ) {
+		event.preventDefault();
+		$('body').addClass('show-modal-ex');
+	},
+
+	chooseFriend: function() {
+		var id = $('#frinds-list').find('input[name="friend"]:checked').val();
+		this.friend = this.friendsList.collection.get(id);
+		$('body').removeClass('show-modal-ex');
+		this.updateFriendDetail(this.friend);
+	},
+
+	updateFriendDetail: function(friend) {
+		if ( friend ) {
+			$('.ex-username').text(friend.get('name'));
+			$('.ex-search img').attr('src', friend.get('pic_small'));
+			this.render();
+		}
 	}
 });

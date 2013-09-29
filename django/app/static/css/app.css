@@ -272,3 +272,7 @@ body.show-modal-ex .modal-find-ex{
 .user-list-modal img{
 	vertical-align: middle;
 }
+
+.user-list-modal label{
+	cursor: pointer;
+}

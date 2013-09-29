@@ -1,0 +1,34 @@
+<script type="text/template" id="friends-list-template">
+    <% _.each(friends, function(friend) { %>
+        <li>
+            <input type="radio" value="<%= friend.uid %>" name="friend" id="friend_id_<%= friend.uid %>">
+            <label for="friend_id_<%= friend.uid %>">
+                <img src="<%= friend.pic_small %>"><%= friend.name %>
+            </label>
+        </li>
+    <% }); %>
+</script>
+
+<script type="text/template" id="mutual-friends-list-template">
+    <% _.each(friends, function(friend) { %>
+        <li>
+            <img src="<%= friend.pic_small %>"><%= friend.name %>
+        </li>
+    <% }); %>
+</script>
+
+<script type="text/template" id="mutual-photos-template">
+    <% _.each(photos, function(photo) { %>
+        <li>
+            <img src="<%= photo.src_small %>" title="<%= photo.caption %>" alt="<%= photo.caption %>">
+        </li>
+    <% }); %>
+</script>
+
+<script type="text/template" id="mutual-likes-template">
+    <% _.each(likes, function(like) { %>
+        <li>
+            <a href="<%= like.page_url %>"><%= like.name %></a>
+        </li>
+    <% }); %>
+</script>

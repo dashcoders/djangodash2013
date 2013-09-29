@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/app.css">
 </head>
 <body>
-    <div class="app">
+    <div id="app" class="app">
         <div class="app-sidebar">
             <div class="app-sidebaer-header">
                 <img  src="{{ STATIC_URL }}img/profile-image.png" class="user-profile-image">
@@ -19,7 +19,7 @@
                 <div class="ex-search">
                     <img src="{{ STATIC_URL }}img/profile-ex-image.png">
                     <div class="ex-info">
-                        <p class="ex-username">Maria da Silva</p>
+                        <p class="ex-username"></p>
                         <a href="#">Search / Change</a>
                     </div>
                 </div>
@@ -28,9 +28,9 @@
             <div class="app-sidebar-section">
                 <p class="app-sidebar-title">See common</p>
                 <ul>
-                    <li><a href="#">Photos <span class="count">10</span></a></li>
-                    <li><a href="#">Friends <span class="count">20</span></a></li>
-                    <li><a href="#">Likes <span class="count">30</span></a></li>
+                    <li><a class="common-photos" href="#">Photos <span class="count">10</span></a></li>
+                    <li><a class="common-friends" href="#">Friends <span class="count">20</span></a></li>
+                    <li><a class="common-likes" href="#">Likes <span class="count">30</span></a></li>
                 </ul>
             </div>
 
@@ -43,15 +43,20 @@
         </div>
         <div class="app-content">
             <div class="app-view">
-                <h2 class="app-view-title">Photos</h2>
-                <div class="app-view-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
+                <h2>Mutual Friends</h2>
+                <ol id="mutual-friends-list">
+
+                </ol>
+
+                <h2>Mutual Likes</h2>
+                <ol id="mutual-likes">
+
+                </ol>
+
+                <h2>Mutual Photos</h2>
+                <ul id="mutual-photos" class="list-inline">
+
+                </ul>
             </div>
         </div>
 
@@ -65,63 +70,7 @@
                 <h3 class="title">Find your ex</h3>
             </div>
             <div class="app-modal-content">
-                <ul class="user-list-modal">
-                    <li>
-                        <input type="radio">
-                        <label>
-                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
-                            Maria da Silva
-                        </label>
-                    </li>
-                    <li>
-                        <input type="radio">
-                        <label>
-                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
-                            João da Silva
-                        </label>
-                    </li>
-                    <li>
-                        <input type="radio">
-                        <label>
-                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
-                            Maria da Silva
-                        </label>
-                    </li>
-                    <li>
-                        <input type="radio">
-                        <label>
-                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
-                            João da Silva
-                        </label>
-                    </li>
-                    <li>
-                        <input type="radio">
-                        <label>
-                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
-                            Maria da Silva
-                        </label>
-                    </li>
-                    <li>
-                        <input type="radio">
-                        <label>
-                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
-                            João da Silva
-                        </label>
-                    </li>
-                    <li>
-                        <input type="radio">
-                        <label>
-                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
-                            Maria da Silva
-                        </label>
-                    </li>
-                    <li>
-                        <input type="radio">
-                        <label>
-                            <img src="{{ STATIC_URL }}img/profile-ex-image.png">
-                            João da Silva
-                        </label>
-                    </li>
+                <ul id="frinds-list"class="user-list-modal">
                 </ul>
             </div>
             <div class="app-modal-footer button-right">
@@ -129,5 +78,16 @@
             </div>
         </div>
     </div>
+
+    {% include "js_templates.html" %}
+
+    <script src="{{ STATIC_URL }}js/libs/jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/underscore.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/backbone.js"></script>
+    <script src="{{ STATIC_URL }}js/app/init.js"></script>
+    <script src="{{ STATIC_URL }}js/app/models.js"></script>
+    <script src="{{ STATIC_URL }}js/app/collections.js"></script>
+    <script src="{{ STATIC_URL }}js/app/views.js"></script>
+    <script src="{{ STATIC_URL }}js/app/main.js"></script>
 </body>
 </html>
