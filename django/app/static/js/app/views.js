@@ -384,10 +384,19 @@ app.AppView = Backbone.View.extend({
         this.mutualPhotosList.render();
         this.mutualPostList.render();
         this.mutualCommentsList.render();
+
+        this.showFriendSection();
     },
 
     hideAllSections: function() {
         $('div[data-section]').hide();
+    },
+
+    showFriendSection: function() {
+        var section = $('div[data-section="mutual-friends"]');
+
+        $('div[data-section]').not(section).hide();
+        section.show().scrollTop(0);
     },
 
     showSection: function( event ) {
