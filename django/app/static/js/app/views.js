@@ -57,7 +57,7 @@ app.MutualFriendListView = Backbone.View.extend({
 
         $('.reload.friends').on('click', $.proxy(function(e) {
             $(e.target).hide();
-            $(e.target).parents('img.loader').fadeIn('fast');
+            $('.app-content img.loader').fadeIn('fast');
             this.render();
         }, this));
     },
@@ -67,14 +67,15 @@ app.MutualFriendListView = Backbone.View.extend({
     },
 
     render: function() {
-        $('img.loader').hide();
-        $('.reload').fadeIn('fast');
 
         var that = this, html;
         this.collection.fetch({ success: function(){
             that.collection.trigger('change');
             html = that.template({friends: that.collection.toJSON() });
             that.friendsListEl.empty().append(html);
+
+            $('img.loader').hide();
+            $('.reload').fadeIn('fast');
         }});
     }
 });
@@ -92,7 +93,7 @@ app.MutualPhotosListView = Backbone.View.extend({
 
         $('.reload.photos').on('click', $.proxy(function(e) {
             $(e.target).hide();
-            $(e.target).parents('img.loader').fadeIn('fast');
+            $('.app-content img.loader').fadeIn('fast');
             this.render();
         }, this));
     },
@@ -127,7 +128,7 @@ app.MutualLikesListView = Backbone.View.extend({
 
         $('.reload.likes').on('click', $.proxy(function(e) {
             $(e.target).hide();
-            $(e.target).parents('img.loader').fadeIn('fast');
+            $('.app-content img.loader').fadeIn('fast');
             this.render();
         }, this));
     },
@@ -171,7 +172,7 @@ app.MutualPostListView = Backbone.View.extend({
 
         $('.reload.posts').on('click', $.proxy(function(e) {
             $(e.target).hide();
-            $(e.target).parents('img.loader').fadeIn('fast');
+            $('.app-content img.loader').fadeIn('fast');
             this.render();
         }, this));
     },
@@ -219,7 +220,7 @@ app.MutualCommentsListView = Backbone.View.extend({
 
         $('.reload.comments').on('click', $.proxy(function(e) {
             $(e.target).hide();
-            $(e.target).parents('img.loader').fadeIn('fast');
+            $('.app-content img.loader').fadeIn('fast');
             this.render();
         }, this));
     },
