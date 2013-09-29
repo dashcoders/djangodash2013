@@ -32,12 +32,8 @@ app.FriendListView = Backbone.View.extend({
     render: function() {
         this.$img.fadeOut();
 
-        $('.reload.friends').hide();
-
         var html = this.template({friends: this.collection.toJSON() });
         this.$el.empty().append(html);
-
-        $('.reload.friends').show();
     }
 });
 

@@ -153,6 +153,10 @@ input[type="text"]{
     padding-bottom: 30px;
 }
 
+.app-view-section p {
+    margin-bottom: 30px;
+}
+
 .app-sidebar-title{
 	font-size: 16px;
 	font-weight: 700;
@@ -479,7 +483,8 @@ body.show-modal-ex .modal-find-ex{
     border-radius: 5px;
 }
 
-.app-modal-content .loader {
+.app-modal-content .loader-modal {
+    clear: both;
     display: block;
     margin: 20px auto;
 }
