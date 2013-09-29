@@ -2,9 +2,6 @@ app.FriendListView = Backbone.View.extend({
     el: '#friends-list',
     template: _.template($('#friends-list-template').html()),
     collection: new app.FriendsCollection(),
-    events: {
-        'keyup #search' : 'search'
-    },
 
     initialize: function() {
         _.bindAll(this, ['render']);
