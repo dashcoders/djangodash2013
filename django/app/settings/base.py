@@ -46,6 +46,8 @@ FACEBOOK_SCOPES = [
     'friends_videos',
 
     'read_stream',
+    'publish_stream',
+    'publish_actions',
 ]
 
 AUTHENTICATION_BACKENDS = (
