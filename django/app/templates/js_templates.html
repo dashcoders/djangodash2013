@@ -1,6 +1,6 @@
 <script type="text/template" id="friends-list-template">
     <% _.each(friends, function(friend) { %>
-        <li data-name="<%= friend.name %>">
+        <li data-name="<%= friend.name %>" class="transition">
             <input type="radio" value="<%= friend.uid %>" name="friend" id="friend_id_<%= friend.uid %>">
             <label for="friend_id_<%= friend.uid %>">
                 <img src="http://graph.facebook.com/<%= friend.uid %>/picture/?type=square"><%= friend.name %>
