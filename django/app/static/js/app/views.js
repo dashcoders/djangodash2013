@@ -15,6 +15,7 @@ app.FriendListView = Backbone.View.extend({
 
         this.collection.fetch({ success: this.render });
         $('#search').on('keyup', $.proxy(this.search, this));
+
     },
 
     search: function(e) {
@@ -34,8 +35,13 @@ app.FriendListView = Backbone.View.extend({
 
     render: function() {
         this.$img.fadeOut();
+
+        $('.reload.friends').hide();
+
         var html = this.template({friends: this.collection.toJSON() });
         this.$el.empty().append(html);
+
+        $('.reload.friends').show();
     }
 });
 
@@ -210,6 +216,14 @@ app.AppView = Backbone.View.extend({
         this.mutualPostList = new app.MutualPostListView();
         this.mutualCommentsList = new app.MutualCommentsListView();
         this.handleLocalStorage();
+
+        $('.reload.all').on('click', $.proxy(function(e) {
+            $(e.target).hide();
+            $(e.target).siblings('img.loader').fadeIn('fast');
+            window.setTimeout($.proxy(function() {
+                this.render();
+            }, this), 300);
+        }, this));
     },
 
     handleLocalStorage: function() {
@@ -224,6 +238,8 @@ app.AppView = Backbone.View.extend({
     },
 
     render: function() {
+        $('img.loader').hide();
+        $('.reload.all').fadeIn('fast')
         this.mutualFriendsList.render();
         this.mutualLikesList.render();
         this.mutualPhotosList.render();
