@@ -89,15 +89,15 @@ app.AppView = Backbone.View.extend({
         this.mutualLikesList = new app.MutualLikesListView();
 
         this.mutualFriendsList.collection.on('change', function() {
-            $('.common-friends .count').text(this.length);
+            $('a[data-section="mutual-friends"] .count').text(this.length);
         });
 
         this.mutualPhotosList.collection.on('change', function() {
-            $('.common-photos .count').text(this.length);
+            $('a[data-section="mutual-photos"] .count').text(this.length);
         });
 
         this.mutualLikesList.collection.on('change', function() {
-            $('.common-likes .count').text(this.length);
+            $('a[data-section="mutual-likes"] .count').text(this.length);
         });
 
         this.handleLocalStorage();
@@ -121,7 +121,7 @@ app.AppView = Backbone.View.extend({
         event.preventDefault();
         var section = $('div[data-section="'+ $(event.currentTarget).data('section') +'"]');
         $('div[data-section]').not(section).hide();
-        section.show();
+        section.show().scrollTop(0);
     },
 
     showFriendsList: function( event ) {
