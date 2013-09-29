@@ -48,7 +48,7 @@
             <% _.each(posts, function(post) { %>
             <li>
                 <a href="<%= post.permalink %>" target="_blank">
-                    <%= post.message %>
+                    <%= post.message.replace(/\n/igm, '<br>') %>
                 </a>
             </li>
             <% }); %>
@@ -63,7 +63,7 @@
             <% _.each(comments, function(comment) { %>
             <li>
                 <a href="<%= comment.permalink %>" target="_blank">
-                    <%= comment.text %>
+                    <%= comment.text.replace(/\n/igm, '<br>') %>
                 </a>
             </li>
             <% }); %>
