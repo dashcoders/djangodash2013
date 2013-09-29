@@ -389,3 +389,14 @@ body.show-modal-ex .modal-find-ex{
     vertical-align: middle;
     margin: 0 10px 10px 0;
 }
+
+#search {
+    border: 1px solid #ddd;
+    width: 200px;
+    border-radius: 5px;
+}
+
+.loader {
+    display: block;
+    margin: 20px auto;
+}

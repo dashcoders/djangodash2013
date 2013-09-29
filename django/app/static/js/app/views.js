@@ -5,10 +5,31 @@ app.FriendListView = Backbone.View.extend({
 
     initialize: function() {
         _.bindAll(this, ['render']);
+
+        this.$img = $(this.el).siblings('img');
+
+        this.$img.fadeIn();
+
         this.collection.fetch({ success: this.render });
+        $('#search').on('keyup', $.proxy(this.search, this));
+    },
+
+    search: function(e) {
+        var search, name;
+
+        search = $(e.target).val().toLowerCase().latinize();
+
+        $(this.el).find('li').filter(function(index) {
+            var name = $(this).data('name').toLowerCase().latinize();
+
+            if(name.indexOf(search) == -1) {
+                $(this).hide();
+            }
+        });
     },
 
     render: function() {
+        this.$img.fadeOut();
         var html = this.template({friends: this.collection.toJSON() });
         this.$el.empty().append(html);
     }
