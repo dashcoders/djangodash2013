@@ -293,6 +293,11 @@ body.show-modal-ex .modal-find-ex{
 .user-list-modal li{
 	padding: 10px 0;
 	border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.user-list-modal li input {
+    display: none;
 }
 
 .user-list-modal label,
@@ -394,4 +399,15 @@ body.show-modal-ex .modal-find-ex{
 
 .post-list li{
     margin-bottom: 10px;
+}
+
+#search {
+    border: 1px solid #ddd;
+    width: 200px;
+    border-radius: 5px;
+}
+
+.loader {
+    display: block;
+    margin: 20px auto;
 }

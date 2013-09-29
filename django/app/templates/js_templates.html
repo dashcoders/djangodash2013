@@ -1,6 +1,6 @@
 <script type="text/template" id="friends-list-template">
     <% _.each(friends, function(friend) { %>
-        <li>
+        <li data-name="<%= friend.name %>">
             <input type="radio" value="<%= friend.uid %>" name="friend" id="friend_id_<%= friend.uid %>">
             <label for="friend_id_<%= friend.uid %>">
                 <img src="<%= friend.pic_small %>"><%= friend.name %>

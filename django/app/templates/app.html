@@ -1,8 +1,7 @@
-{% load url from future %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Django Dash 2013</title>
+    <title>forget my ex</title>
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset.css">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/app.css">
@@ -94,7 +93,10 @@
                 <h3 class="title">Find your ex</h3>
             </div>
             <div class="app-modal-content">
-                <ul id="frinds-list"class="user-list-modal">
+                <label for="seach">Search:</label>
+                <input type="text" id="search">
+                <img src="{{ STATIC_URL }}img/ajax-loader.gif" class="loader">
+                <ul id="friends-list"class="user-list-modal">
                 </ul>
             </div>
             <div class="app-modal-footer button-right">
@@ -108,6 +110,7 @@
     <script src="{{ STATIC_URL }}js/libs/jquery.js"></script>
     <script src="{{ STATIC_URL }}js/libs/underscore.js"></script>
     <script src="{{ STATIC_URL }}js/libs/backbone.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/latinize.js"></script>
     <script src="{{ STATIC_URL }}js/app/init.js"></script>
     <script src="{{ STATIC_URL }}js/app/models.js"></script>
     <script src="{{ STATIC_URL }}js/app/collections.js"></script>

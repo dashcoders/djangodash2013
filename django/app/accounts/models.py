@@ -7,7 +7,7 @@ from django.utils.translation import ugettext as _
 
 
 class User(AbstractUser):
-    REQUIRED_FIELDS = ['email']
+    REQUIRED_FIELDS = []
     USERNAME_FIELD = 'facebook_id'
 
     facebook_id = models.CharField(_('facebook id'), max_length=20, unique=True)
