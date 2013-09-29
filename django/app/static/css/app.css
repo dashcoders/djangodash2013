@@ -22,6 +22,14 @@ a:hover{
 	color: #888;
 }
 
+.transition {
+    -webkit-transition: all 0.4s ease;
+       -moz-transition: all 0.4s ease;
+        -ms-transition: all 0.4s ease;
+         -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+}
+
 input[type="text"]{
 	border: 0;
 	padding: 10px;
@@ -300,8 +308,23 @@ body.show-modal-ex .modal-find-ex{
 
 .user-list-modal li{
 	padding: 10px 0;
-	border-bottom: 1px solid #ddd;
     cursor: pointer;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    background-color: #eff2f6;
+}
+
+.user-list-modal li:hover{
+    background-color: #f0f5fc;
+}
+
+.user-list-modal li img{
+    margin-right: 10px;
 }
 
 .user-list-modal li input {
