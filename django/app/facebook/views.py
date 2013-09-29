@@ -1,11 +1,13 @@
 # coding: utf-8
 import requests
+from urllib import urlencode
 from urlparse import parse_qs
 from django.conf import settings
 from django.views.generic import View
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
 
 
 class FacebookLoginView(View):
@@ -13,10 +15,10 @@ class FacebookLoginView(View):
     def get(self, *args, **kwargs):
         error = None
 
-        if 'error' in self.request.GET.keys():
+        if 'error' in self.request.GET:
             return redirect('home')
 
-        if 'code' in self.request.GET.keys():
+        elif 'code' in self.request.GET:
             params = {
                 'client_id': settings.FACEBOOK_APP_ID,
                 'redirect_uri': settings.FACEBOOK_REDIRECT_URI,
@@ -42,7 +44,14 @@ class FacebookLoginView(View):
                     error = 'AUTH_DISABLED'
             else:
                 error = 'AUTH_FAILED'
+
         else:
-            error = 'AUTH_DENIED'
+            return HttpResponseRedirect(
+                'https://graph.facebook.com/oauth/authorize?%s' % urlencode({
+                    'client_id': settings.FACEBOOK_APP_ID,
+                    'redirect_uri': settings.FACEBOOK_REDIRECT_URI,
+                    'scope': ','.join(settings.FACEBOOK_SCOPES),
+                })
+            )
 
         return redirect('app')
